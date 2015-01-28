@@ -1,3 +1,6 @@
+import java.lang.Integer;
+import java.lang.String;
+
 // Un module pour les couleurs
 import java.awt.Color;
 // Trois modules pour l'interface graphique
@@ -22,11 +25,12 @@ import IG.Fenetre;
 
 public class NReines
 {
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		// Création d'une fenêtre graphique, d'un échiquiers
 		// et de deux boutons.
 		Fenetre fenetre = new Fenetre("N reines");
-		Plateau plateau = new Plateau(8);
+		Plateau plateau = new Plateau(Integer.parseInt(args[0]));
 		Validation validation = new Validation(plateau);
 		Indice indice = new Indice(plateau);
 		// On précise que l'échiquier et les boutons doivent
@@ -75,7 +79,10 @@ class Validation extends ZoneCliquable
 
 	public void clicGauche()
 	{
-		/* À compléter */
+		if (this.plateau.verifieConfiguration())
+			setBackground(Color.GREEN);
+		else
+			setBackground(Color.RED);
 	}
 	public void clicDroit() {}
 }
@@ -127,65 +134,124 @@ class Plateau extends Grille
 {
 	// Attributs statiques
 	private static int taille;
-
+	private Case[][] tab;
 	// Constructeur
 	public Plateau(int taille)
 	{
 		// Initialisation de la grille graphique de dimensions 8*8
 		super(taille, taille);
-		for (int i = 0; i < taille * taille; i++)
+		this.taille = taille;
+		this.tab = new Case[taille][taille];
+		for (int i = 0; i < taille; i++)
 		{
-			Case c = new Case(this, i);
-			this.ajouteElement(c);
+			for (int j = 0; j < taille; j++)
+			{
+				this.tab[i][j] = new Case(this);
+				this.ajouteElement(this.tab[i][j]);
+			}
 		}
-		/* À compléter ! */
 	}
 
 	// Méthode de vérification générale.
-	public boolean verifieConfiguration()
+	private int compteLigne(Case[] l)
 	{
-		private int compteLigne(Case[] l)
-		{
-			private int	nb;
+		int	nb;
 
+		nb = 0;
+		for (Case c : l)
+		{
+			if (!c.isempty())
+				nb++;
+		}
+		return (nb);
+	}
+	private boolean verifieLignes()
+	{
+		for(Case[] l : this.tab)
+		{
+			if(compteLigne(l) > 1)
+				return (false);
+		}
+		return (true);
+	}
+	private boolean verifieColumns()
+	{
+		int	nb;
+
+		for (int i = 0; i < this.taille; i++)
+		{
 			nb = 0;
-			for (Case c : l)
+			for (Case[] l : this.tab)
 			{
-				if (!c.isempty())
+				if (!l[i].isempty())
 					nb++;
+				if (nb > 1)
+					return (false);
 			}
 		}
-		private boolean verifieLignes(void)
-		{
-			private boolean	ok;
+		return (true);
+	}
+	//Left to Right
+	private boolean verifieDiagLtR()
+	{
+		int	nb;
 
-			ok = true;
-			for(Case[] l : this.tab)
-			{
-				if(compteLigne(l) > 1)
-					ok = false;
-				return (ok);
-			}
-		}
-		private boolean verifieColumns()
+		//Diagonale de dessous
+		for (int i = 0; i < this.taille; i++)
 		{
-			private int	nb;
-
-			for (int i = 0; i < this.taille; i++)
+			nb = 0;
+			for (int j = 0; j < this.taille - i; j++)
 			{
-				nb = 0;
-				for (Case[] l : this.tab)
-				{
-					if (!l[i].isempty())
-						nb++;
-					if (nb > 1)
-						return (false);
-				}
+				if (!this.tab[i + j][j].isempty())
+				nb++;
+				if (nb > 1)
+				return (false);
 			}
-			return (true);
 		}
-		/* À remplacer ! */
-		return verifieLignes() && verifieColumns() && verifieDiagonale();
+		//Diagonale de dessus
+		for (int j = 1; j < this.taille; j++)
+		{
+			nb = 0;
+			for (int i = 0; i < this.taille - j; i++)
+			{
+				if (!this.tab[i][i + j].isempty())
+				nb++;
+				if (nb > 1)
+				return (false);
+			}
+		}
+		return (true);
+	}
+	//Right to Left
+	private boolean verifieDiagRtL()
+	{
+		int	nb;
+
+		//Diagonale de dessous
+		for (int i = 0; i < this.taille; i++)
+		{
+			nb = 0;
+			for (int j = this.taille - 1; j >= i; j--)
+			{
+				if (!this.tab[this.taille - 1 + i - j][j].isempty())
+				nb++;
+				if (nb > 1)
+				return (false);
+			}
+		}
+		//Diagonale de dessus
+		for (int i = 0; i < this.taille - 1; i++)
+		{
+			nb = 0;
+			for (int j = this.taille - 2 - i; j >= 0; j--)
+			{
+				if (!this.tab[this.taille - 2 - i - j][j].isempty())
+				nb++;
+				if (nb > 1)
+				return (false);
+			}
+		}
+		return (true);
 	}
 
 	// Méthode vérifiant que la configuration actuelle est
@@ -199,6 +265,13 @@ class Plateau extends Grille
 	{
 		/* À remplacer ! */
 		return false;
+	}
+	public boolean verifieConfiguration()
+	{
+		return (verifieLignes()
+				&& verifieColumns()
+				&& verifieDiagLtR()
+				&& verifieDiagRtL());
 	}
 }
 
@@ -223,25 +296,26 @@ class Plateau extends Grille
 
 class Case extends ZoneCliquable
 {
-	private int		id;
-	private boolean	isempty;
+	private boolean	empty;
 	// Constructeur
-	public Case(Plateau plateau, int id)
+	public Case(Plateau plateau)
 	{
 		// Initialisation d'une case cliquable, de dimensions 40*40 pixels.
 		super(40, 40);
-		this.id = id;
-		this.isempty = true;
-		/* À compléter ! */
+		this.empty = true;
+	}
+	public boolean isempty()
+	{
+		return (this.empty);
 	}
 	// Action à effectuer lors d'un clic gauche.
 	public void clicGauche()
 	{
-		if (this.isempty)
+		if (this.empty)
 			setBackground(Color.BLACK);
-		if (!this.isempty)
+		if (!this.empty)
 			setBackground(Color.WHITE);
-		this.isempty = !this.isempty;
+		this.empty = !this.empty;
 		/* À compléter */
 	}
 
