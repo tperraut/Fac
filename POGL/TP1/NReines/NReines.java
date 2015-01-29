@@ -30,7 +30,7 @@ public class NReines
 		// Création d'une fenêtre graphique, d'un échiquiers
 		// et de deux boutons.
 		Fenetre fenetre = new Fenetre("N reines");
-		Plateau plateau = new Plateau(Integer.parseInt(args[0]));
+		Plateau plateau = new Plateau((args.length == 1) ? Integer.parseInt(args[0]) : 8);
 		Validation validation = new Validation(plateau);
 		Indice indice = new Indice(plateau);
 		// On précise que l'échiquier et les boutons doivent
@@ -135,10 +135,11 @@ class Plateau extends Grille
 	// Attributs statiques
 	private static int taille;
 	private Case[][] tab;
+	private int reines = 0;
 	// Constructeur
 	public Plateau(int taille)
 	{
-		// Initialisation de la grille graphique de dimensions 8*8
+		// Initialisation de la grille graphique
 		super(taille, taille);
 		this.taille = taille;
 		this.tab = new Case[taille][taille];
@@ -152,7 +153,14 @@ class Plateau extends Grille
 		}
 	}
 
-	// Méthode de vérification générale.
+	public void reinesInGrille(boolean boo)
+	{
+		this.reines += (boo) ? 1 : -1;
+	}
+	public boolean okReines()
+	{
+		return (this.reines < this.taille);
+	}
 	private int compteLigne(Case[] l)
 	{
 		int	nb;
@@ -253,14 +261,16 @@ class Plateau extends Grille
 		}
 		return (true);
 	}
-
-	// Méthode vérifiant que la configuration actuelle est
-	// résoluble et plaçant le cas échéant dans [indiceL] et
-	// [indiceR] les coordonnées d'un coup possible vers une
-	// solution.
-	// La méthode est récursive, et explore tous les coups valides.
-	// Lors de l'exploration d'un coup, la méthode modifie l'échiquier,
-	// puis annule ses modifications lors du "backtrack".
+/*
+	Méthode vérifiant que la configuration actuelle est
+	résoluble et plaçant le cas échéant dans [indiceL] et
+	[indiceR] les coordonnées d'un coup possible vers une
+	solution.
+	La méthode est récursive, et explore tous les coups valides.
+	Lors de l'exploration d'un coup, la méthode modifie l'échiquier,
+	puis annule ses modifications lors du "backtrack".
+*/
+	// Méthode de vérification générale.
 	public boolean verifieResolubilite()
 	{
 		/* À remplacer ! */
@@ -297,12 +307,14 @@ class Plateau extends Grille
 class Case extends ZoneCliquable
 {
 	private boolean	empty;
+	private Plateau plateau;
 	// Constructeur
 	public Case(Plateau plateau)
 	{
 		// Initialisation d'une case cliquable, de dimensions 40*40 pixels.
 		super(40, 40);
 		this.empty = true;
+		this.plateau = plateau;
 	}
 	public boolean isempty()
 	{
@@ -311,11 +323,18 @@ class Case extends ZoneCliquable
 	// Action à effectuer lors d'un clic gauche.
 	public void clicGauche()
 	{
-		if (this.empty)
+		if (this.empty && this.plateau.okReines())
+		{
+			this.plateau.reinesInGrille(this.empty);
 			setBackground(Color.BLACK);
-		if (!this.empty)
+			this.empty = !this.empty;
+		}
+		else if (!this.empty)
+		{
+			this.plateau.reinesInGrille(this.empty);
 			setBackground(Color.WHITE);
-		this.empty = !this.empty;
+			this.empty = !this.empty;
+		}
 		/* À compléter */
 	}
 
