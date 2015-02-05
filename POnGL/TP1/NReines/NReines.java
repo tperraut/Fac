@@ -84,7 +84,20 @@ class Validation extends ZoneCliquable
 		else
 			setBackground(Color.RED);
 	}
-	public void clicDroit() {}
+	public void clicDroit() {
+		for (Case[] tc : this.plateau.getTab())
+		{
+			for (Case c : tc)
+			{
+				if (!c.isempty())
+				{
+					this.plateau.reinesInGrille(false);
+					c.setBackground(Color.WHITE);
+					c.setEmpty(true);
+				}
+			}
+		}
+	}
 }
 
 /*
@@ -152,7 +165,10 @@ class Plateau extends Grille
 			}
 		}
 	}
-
+	public Case[][] getTab()
+	{
+		return (this.tab);
+	}
 	public void reinesInGrille(boolean boo)
 	{
 		this.reines += (boo) ? 1 : -1;
@@ -211,9 +227,9 @@ class Plateau extends Grille
 			for (int j = 0; j < this.taille - i; j++)
 			{
 				if (!this.tab[i + j][j].isempty())
-				nb++;
+					nb++;
 				if (nb > 1)
-				return (false);
+					return (false);
 			}
 		}
 		//Diagonale de dessus
@@ -223,9 +239,9 @@ class Plateau extends Grille
 			for (int i = 0; i < this.taille - j; i++)
 			{
 				if (!this.tab[i][i + j].isempty())
-				nb++;
+					nb++;
 				if (nb > 1)
-				return (false);
+					return (false);
 			}
 		}
 		return (true);
@@ -242,9 +258,9 @@ class Plateau extends Grille
 			for (int j = this.taille - 1; j >= i; j--)
 			{
 				if (!this.tab[this.taille - 1 + i - j][j].isempty())
-				nb++;
+					nb++;
 				if (nb > 1)
-				return (false);
+					return (false);
 			}
 		}
 		//Diagonale de dessus
@@ -254,22 +270,22 @@ class Plateau extends Grille
 			for (int j = this.taille - 2 - i; j >= 0; j--)
 			{
 				if (!this.tab[this.taille - 2 - i - j][j].isempty())
-				nb++;
+					nb++;
 				if (nb > 1)
-				return (false);
+					return (false);
 			}
 		}
 		return (true);
 	}
-/*
-	Méthode vérifiant que la configuration actuelle est
-	résoluble et plaçant le cas échéant dans [indiceL] et
-	[indiceR] les coordonnées d'un coup possible vers une
-	solution.
-	La méthode est récursive, et explore tous les coups valides.
-	Lors de l'exploration d'un coup, la méthode modifie l'échiquier,
-	puis annule ses modifications lors du "backtrack".
-*/
+	/*
+	   Méthode vérifiant que la configuration actuelle est
+	   résoluble et plaçant le cas échéant dans [indiceL] et
+	   [indiceR] les coordonnées d'un coup possible vers une
+	   solution.
+	   La méthode est récursive, et explore tous les coups valides.
+	   Lors de l'exploration d'un coup, la méthode modifie l'échiquier,
+	   puis annule ses modifications lors du "backtrack".
+	   */
 	// Méthode de vérification générale.
 	public boolean verifieResolubilite()
 	{
@@ -306,7 +322,7 @@ class Plateau extends Grille
 
 class Case extends ZoneCliquable
 {
-	private boolean	empty;
+	private boolean empty;
 	private Plateau plateau;
 	// Constructeur
 	public Case(Plateau plateau)
@@ -319,6 +335,10 @@ class Case extends ZoneCliquable
 	public boolean isempty()
 	{
 		return (this.empty);
+	}
+	public void setEmpty(boolean b)
+	{
+		this.empty = b;
 	}
 	// Action à effectuer lors d'un clic gauche.
 	public void clicGauche()
@@ -337,6 +357,7 @@ class Case extends ZoneCliquable
 		}
 		/* À compléter */
 	}
+
 
 	// Action à effectuer lors d'un clic droit.
 	public void clicDroit() { }
