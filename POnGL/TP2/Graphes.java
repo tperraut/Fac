@@ -1,67 +1,67 @@
 import java.lang.Math;
 
 public class Graphes {
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-	///*
-	// Exemple (a)
-	// 2 - sqrt(2);  ~ 0.5858
-	Noeud as1  = new NSource(2);
-	Noeud aop1 = new NRacine(as1);
-	Noeud aop2 = new NMoins(aop1);
-	Noeud aop3 = new NAdd(as1, aop2);
-	System.out.println("Exemple (a) : " + aop3.compute());
-	//*/
+		///*
+		// Exemple (a)
+		// 2 - sqrt(2);  ~ 0.5858
+		Noeud as1  = new NSource(2);
+		Noeud aop1 = new NRacine(as1);
+		Noeud aop2 = new NMoins(aop1);
+		Noeud aop3 = new NAdd(as1, aop2);
+		System.out.println("Exemple (a) : " + aop3.compute());
+		//*/
 
-	///*
-	// Exemple (b)
-	// min(1, 2);    ~ 1
-	Noeud bs1  = new NSource(1);
-	Noeud bs2  = new NSource(2);
-	Noeud bop1 = new NMoins(bs2);
-	Noeud bop2 = new NAdd(bs1, bop1);
-	Noeud bop3 = new NChoix(bs1, bs2, bop2, 0);
-	System.out.println("Exemple (b) : " + bop3.compute());
-	//*/
+		///*
+		// Exemple (b)
+		// min(1, 2);    ~ 1
+		Noeud bs1  = new NSource(1);
+		Noeud bs2  = new NSource(2);
+		Noeud bop1 = new NMoins(bs2);
+		Noeud bop2 = new NAdd(bs1, bop1);
+		Noeud bop3 = new NChoix(bs1, bs2, bop2, 0);
+		System.out.println("Exemple (b) : " + bop3.compute());
+		//*/
 
-	///*
-	// Exemple (c)
-	// Partie entière de 4.2;    ~4
-	Noeud cs0  = new NSource(0);
-	Noeud cs1  = new NSource(1);
-	Noeud cc1  = new NCompteur();
-	NoeudBinaire cop1 = new NAdd(cs1);
-	Noeud cop2 = new NChoix(cop1, cs0, cc1, 4.2);
-	cop1.setSource2(cop2);
-	System.out.println("Exemple (c) : " + cop2.compute());
-	//*/
+		///*
+		// Exemple (c)
+		// Partie entière de 4.2;    ~4
+		Noeud cs0  = new NSource(0);
+		Noeud cs1  = new NSource(1);
+		Noeud cc1  = new NCompteur();
+		NoeudBinaire cop1 = new NAdd(cs1);
+		Noeud cop2 = new NChoix(cop1, cs0, cc1, 4.2);
+		cop1.setSource2(cop2);
+		System.out.println("Exemple (c) : " + cop2.compute());
+		//*/
 
-	///*
-	// Exemple (d)
-	// sqrt(2)*sqrt(2);   ~2
-	Noeud ds1  = new NSource(2);
-	Noeud dop1 = new NRacine(ds1);
-	Noeud dop2 = new NPuissance(dop1, 2);
-	System.out.println("Exemple (d) : " + dop2.compute());
-	//*/
+		///*
+		// Exemple (d)
+		// sqrt(2)*sqrt(2);   ~2
+		Noeud ds1  = new NSource(2);
+		Noeud dop1 = new NRacine(ds1);
+		Noeud dop2 = new NPuissance(dop1, 2);
+		System.out.println("Exemple (d) : " + dop2.compute());
+		//*/
 
-	///*
-	// Exemple (e)
-	// 0.999999999 puissance 100;   ~0.0000454
-	Noeud es1  = new NSource(0.999999999);
-	Noeud ec1  = new NCompteur();
-	Noeud eop1 = new NPuissance(10);
-	Noeud eop2 = new NChoix(eop1, es1, ec1, 11);
-	eop1.setSource1(eop2);
-	System.out.println("Exemple (e) : " + eop2.compute());
-	//*/
-    }
+		///*
+		// Exemple (e)
+		// 0.999999999 puissance 100;   ~0.0000454
+		Noeud es1  = new NSource(0.999999999);
+		Noeud ec1  = new NCompteur();
+		Noeud eop1 = new NPuissance(100);
+		Noeud eop2 = new NChoix(eop1, es1, ec1, 11);
+		((NoeudUnaire)eop1).setSource1(eop2);
+		System.out.println("Exemple (e) : " + eop2.compute());
+		//*/
+	}
 }
 
 abstract class Noeud
 {
-    public Noeud() { }
-    abstract public double compute();
+	public Noeud() { }
+	abstract public double compute();
 }
 
 abstract class NoeudUnaire extends Noeud
