@@ -1,0 +1,58 @@
+Ce TP sera noté.
+Attention, cela ne veut pas dire qu’il s’agit d’un examen ! Cette note de contrôle continu vise avant tout à évaluer votre implication dans les séances de TP. Ainsi, vous pouvez -et même devez- poser des questions à votre encadrant et/ou discuter entre vous des stratégies de résolution des différentes questions, exactement comme dans les séances habituelles.
+À la fin de la séance, vous devez envoyer une archive .zip à votre encadrant de TP. Cette archive contiendra : l’ensemble de vos fichiers .java, et un (petit !) rapport sous la forme d’un fichier texte.
+Le rapport indiquera : les parties que vous avez traitées, les difficultés particulières que vous avez pu rencontrer sur certaines méthodes, et les configurations de trains que vous avez utilisées dans la classe [Main] pour tester vos méthodes.
+
+
+
+
+Partie I : il faut compléter le squelette fourni, et en particulier les méthodes listées ci-dessous. Pour plus d’information sur le rôle que doit jouer chaque méthode, rapportez-vous aux descriptifs fournis dans les commentaires. Si cela vous semble utile, vous pouvez définir des méthodes auxiliaires supplémentaires ou ajouter des attributs aux classes.
+Tout au long de la séance, il est important de tester vos méthodes. Pour ceci, créez des trains dans la méthode [main], ajoutez des éléments de trains et des éléments transportés, et affichez le résultat de vos méthodes. Vous pouvez aussi utiliser les méthodes [toString] fournies pour voir l’état d’un train ou d’un élément.
+
+A== Dans la classe Locomotive :
+1/ le constructeur
+2/ getTractionMax
+
+B== Dans la classe Autorail :
+1/ le constructeur
+2/ getTractionMax
+3/ placesRestantes
+
+C== Dans la classe Wagon :
+1/ le constructeur
+2/ placesRestantes
+
+D== Dans la classe WagonBar :
+1/ le constructeur
+
+E== Dans la class EltTransporteur :
+1/ poidsDesTransportables
+2/ calculerPoids
+3/ ajouterTransportable
+
+F== Dans la classe PorteConteneur :
+1/ calculerVolume
+2/ ajouterTransportable  (redéfinition)
+
+G== Dans la classe Train :
+1/ le constructeur
+2/ ajouterElt
+3/ getPoids
+4/ getTractionMax
+5/ bienForme
+
+
+
+
+Partie II : les classes à créer sont les suivantes :
+
+A== Une classe Voiture.java, avec les méthodes :
+1/ un constructeur
+2/ ajouterTransportable  (redéfinition)
+3/ poidsDesTransportables  (redéfinition)
+4/ getPoids  (redéfinition)
+5/ toString
+
+B== Une classe PorteVoitures.java, avec les méthodes :
+1/ un constructeur
+2/ toString
