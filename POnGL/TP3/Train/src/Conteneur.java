@@ -8,7 +8,8 @@ public class Conteneur implements Transportable {
 	private final int volume;
 	private final int poids;
 	
-	public Conteneur(int poids, int volume){
+	public Conteneur(int poids, int volume)
+	{
 		this.poids = poids;
 		this.volume = volume;
 	}
@@ -17,23 +18,25 @@ public class Conteneur implements Transportable {
 	 * Renvoie le poids du conteneur.
 	 */
 	@Override
-	public int getPoids() {
-		return poids;
+	public int getPoids()
+	{
+		return (this.poids);
 	}
 	
 	/**
 	 * Renvoie le volume du conteneur.
 	 */
-	public int getVolume() {
-		return volume;
+	public int getVolume()
+	{
+		return (this.volume);
 	}
 	
 	/**
 	 * Produit un descriptif de l'élément.
 	 */
-	public String toString(){
-		return "conteneur de volume : " + String.valueOf(volume) +
-			   " et de poids : " + String.valueOf(poids);
+	public String toString()
+	{
+		return ("conteneur de volume : " + String.valueOf(volume)
+			+ " et de poids : " + String.valueOf(poids));
 	}
-
 }
