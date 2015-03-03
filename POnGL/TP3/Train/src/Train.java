@@ -91,6 +91,14 @@ public class Train
 					return (false);
 				devant = false;
 			}
+			if (e instanceof PorteVoitures)
+			{
+				if (((PorteVoitures)e).calculerVolume() < 0
+						|| ((PorteVoitures)e).calculerVolume()
+							> ((PorteVoitures)e).getCapacite())
+					return (false);
+				devant = false;
+			}
 			if (e instanceof Locomotive && !devant)
 				return (false);
 		}

@@ -1,4 +1,3 @@
-
 public class Locomotive extends EltTrain implements EltMoteur
 {
 	/**
@@ -25,5 +24,4 @@ public class Locomotive extends EltTrain implements EltMoteur
 	{
 		return (tractionMax);
 	}
-
 }

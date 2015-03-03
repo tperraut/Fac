@@ -7,12 +7,9 @@ public class Wagon extends EltTransporteur<Passager> {
 	 * @param capacite  indique le nombre de passagers que l'élément
 	 * peut accueillir.
 	 */
-	private int placesRestantes;
-
 	public Wagon(int poids, int capacite)
 	{
 		super(poids, capacite);
-		this.placesRestantes = capacite;
 	}
 
 	/**
@@ -20,7 +17,7 @@ public class Wagon extends EltTransporteur<Passager> {
 	 */
 	public int placesRestantes()
 	{
-		return (placesRestantes);
+		return (this.capacite - this.cargo.size());
 	}
 
 	/**

@@ -1,0 +1,21 @@
+Thomas Perraut
+
+Compte rendu TP3
+
+	Partie I : Pas de soucis particulier, seulement quelques erreur de syntaxe a corriger pour pouvoir compiler.
+	Partie II :
+	- Ma classe Voiture doit differe du resultat attendu car je n'ai pas eu a modifier les methodes demandees
+		neanmoins ma representation de celle-ci me parait correcte a un detail pret. En la faisant heriter de
+		EltTransporteur<Passager>, elle peut etre considere comme un EltTrain et par consequent etre mise a la
+		suite d'un wagon(au sens large) quelconque a moins qu'en implementant l'interface Transportable qui est
+		plus bas dans la hierarchie, cela bloque une telle erreur.
+
+	- J'ai considere les voiture par leur volume car il est a mon sens un peu erronee de considere une capacite
+		en nombre de voitures pour un PorteVoiture puisque la taille de celles-ci differe.
+		Dans cette optique, j'ai cree ma classe PorteVoiture un peu comme un PorteConteneur en considerant une
+		capacite en volume.
+
+	Si vous avez une methode ou juste un indice pour orienter mes recherches permettant d'eviter la
+	"foret de if" de la methode BienForme, je serais heureu d'en prendre connaissance.
+
+	Desole d'envoyer mon travail au dernier moment, j'espere que vous l'accepterez quand meme.

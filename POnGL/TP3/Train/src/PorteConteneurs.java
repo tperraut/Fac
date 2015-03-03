@@ -8,7 +8,7 @@ public class PorteConteneurs extends EltTransporteur<Conteneur>
 	public PorteConteneurs(int poids, int capacite) {
 		super(poids, capacite);
 	}
-	
+
 	/**
 	 * Calcul du volume total des éléments transportés.
 	 */
@@ -18,7 +18,7 @@ public class PorteConteneurs extends EltTransporteur<Conteneur>
 			volumeTotal += t.getVolume();
 		return (volumeTotal);
 	}
-	
+
 	/**
 	 * Redéfinition de la fonction d'ajout, pour tenir compte du
 	 * volume des conteneurs.
@@ -31,14 +31,14 @@ public class PorteConteneurs extends EltTransporteur<Conteneur>
 			return (true);
 		}
 		return false;
-	}	
-	
+	}
+
 	/**
 	 * Produit un descriptif de l'élément.
 	 */
 	public String toString(){
 		return "PorteConteneur : poids total = " + getPoids() +
-			   ", capacité occupée/capacité totale = " + this.calculerVolume() + "/" + capacite;
+			", capacité occupée/capacité totale = " + this.calculerVolume() +
+			"/" + capacite;
 	}
-
 }

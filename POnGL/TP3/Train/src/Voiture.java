@@ -1,21 +1,21 @@
-public class Voiture implements Transportable
+public class Voiture extends EltTransporteur<Passager> implements Transportable
 {
-	private final int poids;
-	private final char categorie;
+	private final int volume;
 
-	public Voiture(int poids, char categorie)
+	public Voiture(int poids, int capacite, int volume)
 	{
-		this.poids = poids;
-		this.categorie = categorie;
+		super(poids, capacite);
+		this.volume = volume;
 	}
-	@Override
-	public int getPoids()
+	public int getVolume()
 	{
-		return (this.poids);
+		return (this.volume);
 	}
-	public int getCategorie()
+	public String toString()
 	{
-		return (this.categorie);
+		return ("Voiture : Poids totale = " + this.getPoids() +
+				", places occupees/capacite = " + cargo.size() + "/" + capacite +
+				", volume = " + this.volume +
+				", passagers = " + cargoToString());
 	}
-
 }

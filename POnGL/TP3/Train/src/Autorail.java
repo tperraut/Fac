@@ -5,7 +5,6 @@ public class Autorail extends EltTransporteur<Passager> implements EltMoteur {
 	 * La capacité de traction maximale de l'autorail.
 	 */
 	private int tractionMax;
-	private int placesRestantes;
 	/**
 	 * Constructeur d'Autorail.
 	 * @param poids  donne le poids de l'élément à vide.
@@ -14,7 +13,6 @@ public class Autorail extends EltTransporteur<Passager> implements EltMoteur {
 	 */
 	public Autorail(int poids, int capacite, int tractionMax) {
 		super(poids, capacite);
-		this.placesRestantes = capacite;
 		this.tractionMax = tractionMax;
 	}
 
@@ -30,6 +28,6 @@ public class Autorail extends EltTransporteur<Passager> implements EltMoteur {
 	 * Renvoie le nombre de places encore disponibles.
 	 */
 	public int placesRestantes(){
-		return (placesRestantes);
+		return (this.capacite - this.cargo.size());
 	}
 }
