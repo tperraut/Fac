@@ -56,8 +56,8 @@ set wildmenu
 set autoread
 
 set encoding=utf-8
-set tabstop=2 shiftwidth=2 expandtab
-set listchars=tab:▒░,trail:▓
+set tabstop=4 shiftwidth=4
+set listchars=tab:>-,trail:▓
 set list
 
 inoremap <C-U> <C-G>u<C-U>

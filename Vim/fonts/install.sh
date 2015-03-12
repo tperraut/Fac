@@ -7,7 +7,7 @@ find_command="find \"$powerline_fonts_dir\" \( -name '*.[o,t]tf' -or -name '*.pc
 
 if [[ `uname` == 'Darwin' ]]; then
   # MacOS
-  font_dir="$HOME/Library/Fonts"
+  font_dir="$HOME/Library/FontCollections"
 else
   # Linux
   font_dir="$HOME/.fonts"
