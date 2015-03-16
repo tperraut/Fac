@@ -6,7 +6,7 @@
 #*   By: tperraut <mythom008@gmail.com>             +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
 #*   Created: 2015/02/18 12:49:05 by tperraut          #+#    #+#             *#
-#*   Updated: 2015/03/06 15:21:23 by tperraut         ###   ########.fr       *#
+#*   Updated: 2015/03/15 13:24:06 by tperraut         ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
@@ -15,7 +15,8 @@ LIB=graphics.cma
 SRC=compte.ml \
 	decompte.ml \
 	mystere.ml \
-	jeu.ml
+	jeu.ml \
+	cb.ml
 NAME=$(SRC:.ml=.execute)
 OBJO=$(SRC:.ml=.cmo)
 OBJI=$(SRC:.ml=.cmi)

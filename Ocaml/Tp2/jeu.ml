@@ -8,7 +8,7 @@ let rec push x y r =
   let my = event.mouse_y in
     if (mx - x) * (mx - x) + (my - y) * (my - y) < r * r then
       begin
-        set_color red;
+        set_color blue;
         fill_circle x y r;
         drag x y x y r
       end
