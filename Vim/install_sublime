@@ -1,0 +1,13 @@
+#!/bin/bash
+mkdir $HOME/.vim/bundle 2> /dev/null
+cd vundle
+git pull 2> /dev/null
+cd ..
+cp -r vundle $HOME/.vim/bundle/ 2> /dev/null
+cp $HOME/.vimrc $HOME/.vimrc.old 2> /dev/null
+cat vimrc > $HOME/.vimrc
+vim -s BundleInstall 2> /dev/null
+cd fonts
+git pull 2> /dev/null
+./install.sh
+echo "DONE !"

@@ -5,32 +5,34 @@
 #*                                                    +:+ +:+         +:+     *#
 #*   By: tperraut <mythom008@gmail.com>             +#+  +:+       +#+        *#
 #*                                                +#+#+#+#+#+   +#+           *#
-#*   Created: 2015/02/18 12:49:05 by tperraut          #+#    #+#             *#
-#*   Updated: 2015/03/15 13:24:06 by tperraut         ###   ########.fr       *#
+#*   Created: 2015/02/16 15:07:41 by tperraut          #+#    #+#             *#
+#*   Updated: 2015/03/16 16:22:12 by tperraut         ###   ########.fr       *#
 #*                                                                            *#
 #* ************************************************************************** *#
 
-OC=ocamlc
-LIB=graphics.cma
-SRC=compte.ml \
-	decompte.ml \
-	mystere.ml \
-	jeu.ml \
-	cb.ml
-NAME=$(SRC:.ml=.execute)
-OBJO=$(SRC:.ml=.cmo)
-OBJI=$(SRC:.ml=.cmi)
+CC = gcc
+LC = lex
+LLIB = -lfl
+LOUT = lex.yy.c
+CFLAGS = -Wall -Werror -Wextra
+SRL = ex01.lex
+SRC = $(SRL:.lex=.c)
+NAME = $(SRC:.c=.execute)
 
 all: $(NAME)
 
-%.execute: %.ml
-	$(OC) -o $@ $(LIB) $<
+%.execute: %.c
+	$(CC) -o $@ $< $(LLIB)
+%.c: %.lex
+	$(LC) $<
+	mv $(LOUT) $@
 
 clean:
-	rm -f $(OBJO) $(OBJI)
+	rm -f $(SRC)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
+.PHONY: clean fclean
