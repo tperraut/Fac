@@ -88,7 +88,7 @@ set nowritebackup
 set noswapfile
 set fileformats=unix,dos,mac
 
-" exit insert mode 
+" exit insert mode
 inoremap <C-c> <Esc>
 
 set completeopt=menuone,longest,preview
@@ -98,7 +98,7 @@ set completeopt=menuone,longest,preview
 "
 
 " CtrlP
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/* 
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 
 " Ultisnip
 " NOTE: <f1> otherwise it overrides <tab> forever
