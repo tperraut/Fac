@@ -1,4 +1,3 @@
-
 public class Autorail extends EltTransporteur<Passager> implements EltMoteur {
 	
 	/**
