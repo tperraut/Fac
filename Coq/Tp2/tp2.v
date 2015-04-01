@@ -138,7 +138,9 @@ Section Ensembles_finis.
     destruct H1.
     exists n.
     split.
-    omega.  
+    omega.
+    admit.
+    admit.
   Qed.
 
 End Ensembles_finis.
@@ -182,7 +184,7 @@ Section Parite.
   apply pair_0.
   destruct IHx.
   apply spi in H.
-  right.
+  right.aa
   assumption.
   apply sip in H.
   left.
