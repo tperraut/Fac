@@ -76,6 +76,7 @@ End LogiquePropositionnelle.
 Section Quantificateurs.
 
  Variable A : Set.
+ Variable cst : A.
  Variable R : A -> A -> Prop.
 
  Definition f1 := forall x, exists y, R x y /\ R y x.
@@ -104,7 +105,13 @@ Section Quantificateurs.
   unfold f1 in H.
   unfold f3 in H0.
   unfold f4.
-  
+  exists cst.
+  destruct (H cst).
+  destruct H1.
+  apply H0 with (y:=x).
+  split.
+  assumption.
+  assumption.
  Qed.
 
  End Quantificateurs.
@@ -119,37 +126,55 @@ Section Quantificateurs.
  Axiom ami_sym : forall x y, ami x y -> ami y x.
 
  Inductive lien : X -> X -> Prop :=
-(* À compléter *)
-.
+  | lien_xy : forall x : X, forall y : X, ami x y -> lien x y
+  | lien_xzy : forall x y z, ami x z -> lien z y -> lien x y
+ .
 
  Lemma ami_droite :
  forall x y z, lien x z -> ami z y -> lien x y.
  Proof.
-(* À compléter *)
- .
+  intros.
+  induction H.
+  apply lien_xzy with y0.
+  assumption.
+  apply lien_xy.
+  assumption.
+  apply lien_xzy with z.
+  assumption.
+  apply IHlien.
+  assumption.
+ Qed.
 
  Theorem lien_sym :
  forall x y, lien x y -> lien y x.
  Proof.
-(* À compléter *)
- .
+  intros.
+  induction H.
+  apply lien_xy.
+  apply ami_sym.
+  assumption.
+  apply ami_droite with z.
+  assumption.
+  apply ami_sym.
+  assumption.
+ Qed.
 
 End RelationsInductives.
-
-
 
 
 Section RecurrenceForte.
 
  Require Import Omega.
 
- Definition upto (P: nat -> Prop) (n: nat) : Prop := forall m, m<n -> P m.
+ Definition upto (P: nat -> Prop) (n: nat) : Prop := forall m, m < n -> P m.
 
  Lemma upto_forall :
  forall P : nat -> Prop,
  (forall a, upto P a) -> (forall n, P n).
  Proof.
-(* À compléter *)
+  intros.
+  apply H with (S n).
+  omega.
  Qed.
 
  Lemma rec_upto :
@@ -157,7 +182,19 @@ Section RecurrenceForte.
  (forall n, upto P n -> P n) ->
  forall a, upto P a.
  Proof.
-(* À compléter *)
+  intros.
+  induction a.
+  unfold upto.
+  intros.
+  omega.
+  unfold upto.
+  intros.
+  unfold upto in IHa.
+  apply H.
+  unfold upto.
+  intros.
+  apply IHa.
+  omega.
  Qed.
 
  Lemma rec_forte :
@@ -165,7 +202,24 @@ Section RecurrenceForte.
  (forall n : nat, upto P n -> P n) ->
  forall n : nat, P n.
  Proof.
-(* À compléter *)
+  intro.
+  intro.
+  induction n.
+  apply H.
+  unfold upto.
+  intros.
+  omega.
+  apply H.
+  unfold upto.
+  intros.
+  apply H.
+  unfold upto.
+  intros.
+  apply rec_upto with n.
+  intros.
+  apply H.
+  assumption.
+  omega.
  Qed.
 
  Definition divise (a n : nat) : Prop :=
@@ -175,15 +229,20 @@ Section RecurrenceForte.
  forall a, divise a n -> a = 1 \/ a = n.
 
  Axiom premier_ou_divisible :
- forall n, n>1 -> premier n \/ exists d, divise d n /\ d > 1 /\ d < n.
+ forall n, n > 1 -> premier n \/ exists d, divise d n /\ d > 1 /\ d < n.
 
  Axiom division_transitive :
  forall a b c, divise a b -> divise b c -> divise a c.
 
  Lemma diviseur_premier :
- forall n, n>1 -> exists d, divise d n /\ premier d.
+ forall n, n > 1 -> exists d, divise d n /\ premier d.
  Proof.
-(* À compléter *)
+  intros.
+  apply rec_forte with (n := n).
+  unfold upto.
+  intros.
+  unfold upto in H0.
+  apply H0.
  Qed.
 
 End RecurrenceForte.
