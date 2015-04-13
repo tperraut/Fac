@@ -18,20 +18,18 @@ YLIB = -ly
 LOUT = lex.yy.c
 YOUT = y.tab.c
 CFLAGS = -Wall -Werror -Wextra
-SRL = ex01.y
-SRC = $(SRL:.y=.c)
-NAME = $(SRC:.c=.execute)
+SRY = ex01.y
+SRL = $(SRY:.y=.lex)
+SRCY = $(SRY:.y=.c)
+NAME = $(SRY:.y=.execute)
 
-all: $(NAME)
-
-%.execute: %.c
-	$(CC) -o $@ $< $(YLIB)
-%.c: %.y
-	$(YC) $<
-	mv $(YOUT) $@
+all:
+	$(LC) $(SRL)
+	$(YC) -d $(SRY)
+	$(CC) -o $(NAME) $(YOUT) $(LOUT) $(YLIB) $(LLIB)
 
 clean:
-	rm -f $(SRC)
+	rm -f $(LOUT) $(YOUT) $(YOUT:.c=.h)
 
 fclean: clean
 	rm -f $(NAME)

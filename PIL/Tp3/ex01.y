@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 %}
 
 %token CHIFFRE
@@ -9,28 +10,22 @@
 ligne	: expr {printf("%d\n", $1);}
 		;
 expr	: expr '+' terme {$$ = $1 + $3;}
+		| expr '-' terme {$$ = $1 - $3;}
 		| terme
 		;
 terme	: terme '*' facteur {$$ = $1 * $3;}
+		| terme '/' facteur
+			{
+				if ($3 == 0)
+				{
+					printf("Division by 0 is forbiden\n");
+					return ;
+				}
+				$$ = $1 / $3;
+			}
 		| facteur
 		;
 facteur : '(' expr ')' {$$ = $2;}
 		| CHIFFRE
 		;
-
 %%
-
-yylex()
-{
-	int	c;
-	c = getchar();
-	if (isdigit(c))
-	{
-		yylval = c - '0';
-		return (CHIFFRE);
-	}
-	else if (c == '\n')
-		return (0);
-	else
-		return (c);
-}
