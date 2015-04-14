@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:css="http://www.eclipse.org/papyrus/infra/gmfdiag/css" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/viewpoints/policy/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <css:ModelStyleSheets xmi:id="_nVX08OK9EeSH0a0E3y7Bnw"/>
+  <notation:Diagram xmi:id="_g71OEOK_EeSH0a0E3y7Bnw" type="UseCase" name="UseCaseDiagram_Ca_Plane" measurementUnit="Pixel">
+    <styles xmi:type="notation:StringValueStyle" xmi:id="_g71OEeK_EeSH0a0E3y7Bnw" name="diagram_compatibility_version" stringValue="1.0.0"/>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_g71OEuK_EeSH0a0E3y7Bnw"/>
+    <styles xmi:type="style:PapyrusViewStyle" xmi:id="_g71OE-K_EeSH0a0E3y7Bnw">
+      <owner xmi:type="uml:Package" href="model.uml#_lzJNMOK9EeSH0a0E3y7Bnw"/>
+    </styles>
+    <element xmi:type="uml:Package" href="model.uml#_lzJNMOK9EeSH0a0E3y7Bnw"/>
+  </notation:Diagram>
+</xmi:XMI>

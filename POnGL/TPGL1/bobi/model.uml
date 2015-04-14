@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_ddABoOK9EeSH0a0E3y7Bnw" name="model">
+  <packagedElement xmi:type="uml:Package" xmi:id="_lzJNMOK9EeSH0a0E3y7Bnw" name="UseCase">
+    <packagedElement xmi:type="uml:Actor" xmi:id="_3QUOsOK9EeSH0a0E3y7Bnw" name="Client"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_C6TJkOK-EeSH0a0E3y7Bnw" name="Externe"/>
+    <packagedElement xmi:type="uml:Actor" xmi:id="_FpiXAOK-EeSH0a0E3y7Bnw" name="Control_Tower"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_LQuB8OK-EeSH0a0E3y7Bnw" name="Demander une reservation"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_W6dFMOK-EeSH0a0E3y7Bnw" client="_3QUOsOK9EeSH0a0E3y7Bnw" supplier="_LQuB8OK-EeSH0a0E3y7Bnw"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_lTu34OK-EeSH0a0E3y7Bnw" name="Consulter vols"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_y8aUEOK-EeSH0a0E3y7Bnw" client="_C6TJkOK-EeSH0a0E3y7Bnw" supplier="_lTu34OK-EeSH0a0E3y7Bnw"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_z1obEOK-EeSH0a0E3y7Bnw" client="_3QUOsOK9EeSH0a0E3y7Bnw" supplier="_lTu34OK-EeSH0a0E3y7Bnw"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_2qyDQOK-EeSH0a0E3y7Bnw" name="Mise a jour"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_5M-6QOK-EeSH0a0E3y7Bnw" client="_FpiXAOK-EeSH0a0E3y7Bnw" supplier="_2qyDQOK-EeSH0a0E3y7Bnw"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_80SYIOK-EeSH0a0E3y7Bnw" name="Confirmer Reservation"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_DMhskOK_EeSH0a0E3y7Bnw" client="_3QUOsOK9EeSH0a0E3y7Bnw" supplier="_80SYIOK-EeSH0a0E3y7Bnw"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_HgvTwOK_EeSH0a0E3y7Bnw" name="Confirmer Reservation"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_L-5hIOK_EeSH0a0E3y7Bnw" client="_3QUOsOK9EeSH0a0E3y7Bnw" supplier="_HgvTwOK_EeSH0a0E3y7Bnw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_O__eIOLAEeSH0a0E3y7Bnw" name="Classes"/>
+</uml:Model>
