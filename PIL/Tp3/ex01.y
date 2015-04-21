@@ -2,19 +2,30 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+int	tab[26];
 %}
 
 %token CHIFFRE
+%token LETTRE
 
 %%
-ligne	: expr {printf("%d\n", $1);}
+input	: ligne ligne ligne ligne
+ligne	: impl '\n' {printf("%d\n", $1);}
+		| declare
 		;
+declare : LETTRE '=' CHIFFRE {tab[$1] = $3;}
+impl	: impl '>' or {$$ = !$1 || $3;}
+		| or
+or		: or 'V' and {$$ = $1 || $3;}
+		| and
+and		: and '^' expr {$$ = $1 && $3;}
+		| expr
 expr	: expr '+' terme {$$ = $1 + $3;}
 		| expr '-' terme {$$ = $1 - $3;}
 		| terme
 		;
-terme	: terme '*' facteur {$$ = $1 * $3;}
-		| terme '/' facteur
+terme	: terme '*' not {$$ = $1 * $3;}
+		| terme '/' not
 			{
 				if ($3 == 0)
 				{
@@ -23,9 +34,13 @@ terme	: terme '*' facteur {$$ = $1 * $3;}
 				}
 				$$ = $1 / $3;
 			}
-		| facteur
+		| not
 		;
-facteur : '(' expr ')' {$$ = $2;}
+not		: '~' not {$$ = !$2;}
+		| '~' facteur {$$ = !$2;}
+		| facteur
+facteur : '(' impl ')' {$$ = $2;}
 		| CHIFFRE
+		| LETTRE	{$$ = tab[$1];}
 		;
 %%

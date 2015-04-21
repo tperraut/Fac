@@ -8,11 +8,21 @@
 			yylval = atoi(yytext);
 			return (CHIFFRE);
 		}
-\ |\t	{}
-\n		{
-			return (0);
+[a-z]	{
+			yylval = (int)(yytext[0] - 'a');
+			return (LETTRE);
 		}
-.		{
+\ |\t	{}
+->		{
+			return '>';
+		}
+\\\/		{
+			return 'V';
+		}
+\/\\		{
+			return '^';
+		}
+.	{
 			return (yytext[0]);
 		}
 %%
