@@ -1,0 +1,24 @@
+# *** Le fichier des votes ***
+# Les 4 champs sont
+# (1) nom du votant
+# (2) heure de vote
+# (3) heure de derniere modification du vote
+# (4) vote
+# Par exemple, si M. Robin a vote "pour" a 12:31:21 et a modifie son vote a "contre" a 12:50:08,
+# la ligne correspondante sera :
+# Robin 12:31:21 12:50:08 contre
+
+Moreau 14:56:07 14:56:07 pour
+Nicolas 13:07:48 15:34:51 pour
+Simon 11:02:08 11:02:08 contre
+Perrin 17:56:18 17:56:18 contre
+Laurent 09:40:41 09:40:41 pour
+Morin 09:56:02 15:11:11 contre
+Lefebvre 09:05:57 09:05:57 contre
+Mathieu 12:53:25 13:05:28 pour
+Michel 16:14:15 16:14:15 pour
+Clement 10:57:51 10:57:51 pour
+Garcia 17:01:34 17:01:34 contre
+Gauthier 12:43:18 12:43:18 pour
+
+# *** Fin de la liste ***
