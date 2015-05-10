@@ -3,8 +3,6 @@
 <channel name="xfce4-session" version="1.0">
   <property name="general" type="empty">
     <property name="FailsafeSessionName" type="empty"/>
-    <property name="SessionName" type="string" value="Default"/>
-    <property name="SaveOnExit" type="bool" value="true"/>
   </property>
   <property name="sessions" type="empty">
     <property name="Failsafe" type="empty">
@@ -25,14 +23,11 @@
   <property name="splash" type="empty">
     <property name="Engine" type="string" value="simple"/>
     <property name="engines" type="empty">
-      <property name="balou" type="empty">
-        <property name="Theme" type="string" value="Default"/>
-      </property>
       <property name="simple" type="empty">
-        <property name="Font" type="string" value="Sans Bold 15"/>
+        <property name="Font" type="string" value="Sans Bold 10"/>
         <property name="BgColor" type="string" value="#000000"/>
-        <property name="FgColor" type="string" value="#ffffff"/>
-        <property name="Image" type="string" value="/home/tiger/Pictures/Arch_Linux_Wallpaper___Toronto_by_Dethredic.png"/>
+        <property name="FgColor" type="string" value="#000000"/>
+        <property name="Image" type="string" value="/home/tiger/Pictures/wallhaven-82687.jpg"/>
       </property>
     </property>
   </property>

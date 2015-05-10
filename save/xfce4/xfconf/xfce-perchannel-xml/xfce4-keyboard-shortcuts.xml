@@ -34,20 +34,14 @@
       <property name="&lt;Super&gt;p" type="string" value="xfce4-display-settings --minimal"/>
       <property name="&lt;Primary&gt;Escape" type="string" value="xfdesktop --menu"/>
       <property name="override" type="bool" value="true"/>
-      <property name="&lt;Super&gt;t" type="string" value="terminator"/>
-      <property name="&lt;Super&gt;f" type="string" value="thunar"/>
-      <property name="&lt;Super&gt;e" type="string" value="subl3"/>
       <property name="&lt;Super&gt;w" type="string" value="firefox"/>
-      <property name="&lt;Super&gt;q" type="string" value="xkill"/>
       <property name="&lt;Alt&gt;&lt;Super&gt;f" type="string" value="setxkbmap fr"/>
       <property name="&lt;Alt&gt;&lt;Super&gt;u" type="string" value="setxkbmap us"/>
-      <property name="XF86AudioMute" type="string" value="amixer set Master toggle">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="XF86AudioRaiseVolume" type="string" value="amixer set Master 5%+ unmute"/>
-      <property name="XF86AudioLowerVolume" type="string" value="amixer set Master 5%- unmute"/>
+      <property name="&lt;Super&gt;t" type="string" value="terminator"/>
+      <property name="&lt;Super&gt;e" type="string" value="subl3"/>
+      <property name="&lt;Super&gt;f" type="string" value="thunar"/>
       <property name="&lt;Alt&gt;&lt;Super&gt;t" type="string" value="tor-browser-en"/>
-      <property name="XF86TouchpadToggle" type="string" value="/home/tiger/.local/bin/touchpad"/>
+      <property name="&lt;Super&gt;q" type="string" value="xkill"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

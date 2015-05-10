@@ -3,11 +3,11 @@
 <channel name="xfce4-desktop" version="1.0">
   <property name="backdrop" type="empty">
     <property name="screen0" type="empty">
-      <property name="monitorLVDS1" type="empty">
+      <property name="monitoreDP1" type="empty">
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/home/tiger/Pictures/wallpaper-1096348.png"/>
+          <property name="last-image" type="string" value="/home/tiger/Pictures/wallhaven-16149.png"/>
         </property>
         <property name="workspace1" type="empty">
           <property name="color-style" type="int" value="0"/>
@@ -20,18 +20,6 @@
           <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-teal.jpg"/>
         </property>
         <property name="workspace3" type="empty">
-          <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-teal.jpg"/>
-        </property>
-      </property>
-      <property name="monitorHDMI1" type="empty">
-        <property name="workspace0" type="empty">
-          <property name="color-style" type="int" value="0"/>
-          <property name="image-style" type="int" value="5"/>
-          <property name="last-image" type="string" value="/home/tiger/Pictures/wallpaper-1096348.png"/>
-        </property>
-        <property name="workspace1" type="empty">
           <property name="color-style" type="int" value="0"/>
           <property name="image-style" type="int" value="5"/>
           <property name="last-image" type="string" value="/usr/share/backgrounds/xfce/xfce-teal.jpg"/>
@@ -52,10 +40,12 @@
     </property>
   </property>
   <property name="desktop-icons" type="empty">
-    <property name="show-thumbnails" type="bool" value="true"/>
-    <property name="single-click" type="bool" value="true"/>
-    <property name="style" type="int" value="2"/>
-    <property name="icon-size" type="uint" value="40"/>
+    <property name="icon-size" type="uint" value="36"/>
     <property name="tooltip-size" type="double" value="32.000000"/>
+    <property name="single-click" type="bool" value="true"/>
+  </property>
+  <property name="last" type="empty">
+    <property name="window-width" type="int" value="643"/>
+    <property name="window-height" type="int" value="506"/>
   </property>
 </channel>

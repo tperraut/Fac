@@ -1,14 +1,21 @@
 [Desktop Entry]
 Name=Firefox
 GenericName=Web Browser
-GenericName[fr]=Navigateur web
 Comment=Browse the World Wide Web
-Comment[fr]=Naviguer sur le Web
-Exec=/usr/lib/firefox/firefox %u
-Icon=firefox
+Exec=firefox %u
 Terminal=false
 Type=Application
+Icon=firefox
+Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;application/vnd.mozilla.xul+xml;text/mml;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
 StartupNotify=true
-Categories=Network;WebBrowser;
+Actions=NewWindow;NewPrivateWindow;
 X-XFCE-Source=file:///usr/share/applications/firefox.desktop
+
+[Desktop Action NewWindow]
+Name=Open a New Window
+Exec=firefox -new-window
+
+[Desktop Action NewPrivateWindow]
+Name=Open a New Private Window
+Exec=firefox -private-window

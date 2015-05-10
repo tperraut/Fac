@@ -1,8 +1,6 @@
 [Desktop Entry]
 Name=Terminator
-Name[fr]=Terminator
 Comment=Multiple terminals in one window
-Comment[fr]=Permet d'avoir plusieurs terminaux en une seule fenêtre
 TryExec=terminator
 Exec=terminator
 Icon=terminator

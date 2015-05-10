@@ -2,31 +2,19 @@
 
 <channel name="displays" version="1.0">
   <property name="Default" type="empty">
-    <property name="LVDS1" type="string" value="Portable">
+    <property name="eDP1" type="string" value="1. Chimei Innolux Corporation 12&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="60.005696"/>
-      <property name="Rotation" type="int" value="0"/>
-      <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="true"/>
-      <property name="Position" type="empty">
-        <property name="X" type="int" value="1280"/>
-        <property name="Y" type="int" value="0"/>
-      </property>
-    </property>
-    <property name="HDMI1" type="string" value="2. Samsung 23&quot;">
-      <property name="Active" type="bool" value="true"/>
-      <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="60.000000"/>
+      <property name="Resolution" type="string" value="1366x768"/>
+      <property name="RefreshRate" type="double" value="60.070180"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
-        <property name="Y" type="int" value="0"/>
+        <property name="Y" type="int" value="1024"/>
       </property>
     </property>
-    <property name="VGA1" type="string" value="2. Dell 19&quot;">
+    <property name="VGA1" type="string" value="2. Dell 17&quot;">
       <property name="Active" type="bool" value="true"/>
       <property name="Resolution" type="string" value="1280x1024"/>
       <property name="RefreshRate" type="double" value="60.019740"/>
@@ -35,7 +23,7 @@
       <property name="Primary" type="bool" value="false"/>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
-        <property name="Y" type="int" value="56"/>
+        <property name="Y" type="int" value="0"/>
       </property>
     </property>
   </property>
