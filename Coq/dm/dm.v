@@ -238,11 +238,17 @@ Section RecurrenceForte.
  forall n, n > 1 -> exists d, divise d n /\ premier d.
  Proof.
   intros.
-  apply rec_forte with (n := n).
+  induction H.
+  exists 2.
+  split.
+  unfold divise.
+  exists 1.
+  omega.
+  admit.
+  apply rec_forte with (n := S m).
   unfold upto.
   intros.
-  unfold upto in H0.
-  apply H0.
+  admit.
  Qed.
 
 End RecurrenceForte.
