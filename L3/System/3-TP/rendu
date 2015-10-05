@@ -1,0 +1,157 @@
+L3 - 2015
+Thomas Perraut
+mythom008@gmail.com
+htts://github.com/tiger008
+
+Exercice 1
+
+#1 Reponse : Les criteres d'evaluation d'un ordonnanceur sont :
+	> Le taux d'utilisation du CPU;
+	> Le debit : nombre moyen de processus termines par unite de temps;
+	> Le temps d'attente : duree passee dans la file des processus pret;
+	> La rotation : duree d'un processus.
+
+#2 Reponse :
+	> Utilisation CPU : 45 / 49 = 91,8 %
+	> Debit : 3 / 49 = 0.06
+	> Temps d'attente : P1 = 29, P2 = 15, P3 = 28
+	> Rotation : P1 = 49, P2 = 23, P3 = 12
+
+#3 Reponse : Les processus courts sont penalise et il y a un effet
+	d'accumulation si le systeme est charge.
+
+#4 Reponse : Effet de famine pour les gros processus si des plus petit
+	s'incerent dans la file.
+
+#5 Reponse : Choix de priorite par l'os et famine pour les processus peu
+	priotitaire.
+
+Exercice 2
+
+#1 Reponse :
+
+	0--------10-11--13-----18-19
+	|P1       |P2|P3 |P4    |P5|
+	----------------------------
+	Temps d'attente :
+		> P1 = 0
+		> P2 = 10
+		> P3 = 9
+		> P4 = 9
+		> P5 = 12
+	Temps d'attente moyen : 8
+#2 Reponse :
+
+	0-----6--7--9--13-----18-19
+	|P1   |P5|P3|P1 |P4    |P2|
+	---------------------------
+	Temps d'attente :
+		> P1 = 3
+		> P2 = 18
+		> P3 = 5
+		> P4 = 9
+		> P5 = 0
+	Temps d'attente moyen : 7
+
+#3 Reponse :
+
+	0--1--------11-12--14-----19
+	|P2|P1       |P5|P3 |P4    |
+	----------------------------
+	Temps d'attente :
+		> P1 = 1
+		> P2 = 0
+		> P3 = 10
+		> P4 = 10
+		> P5 = 5
+	Temps d'attente moyen : 5.2
+
+#4 Reponse :
+
+	0--1--2---4---6--7----10--------19
+	|P2|P1|P3 |P4 |P5|P4   |P1       |
+	----------------------------------
+	Temps d'attente :
+		> P1 = 9
+		> P2 = 0
+		> P3 = 0
+		> P4 = 1
+		> P5 = 0
+	Temps d'attente moyen : 2
+
+#5 Reponse :
+
+	0---2--3---5---7---9--10--12--14--16-17----19
+	|P1 |P2|P3 |P1 |P4 |P5 |P1 |P4 |P1 |P4|P1   |
+	---------------------------------------------
+	Temps d'attente :
+		> P1 = 9
+		> P2 = 2
+		> P3 = 1
+		> P4 = 8
+		> P5 = 3
+	Temps d'attente moyen : 4.6
+
+#6 Reponse : Le meilleur est l'algo de la question 4.
+
+Exercice 3
+
+#1
+	Code :
+public class Ex3 extends Thread
+{
+	@Override
+	public void run()
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			try{this.sleep(1000);}
+			catch (Exception e) {}
+			System.out.println("Bonjour");
+		}
+	}
+	public static void main(String[] args)
+	{
+		Ex3 t = new Ex3();
+		System.out.println("debut");
+		t.start();
+		try {sleep(2000);//Q3 : t.join();}
+		catch (Exception e){};
+		System.out.println("fin");
+	}
+}
+
+	Resultat :
+
+	debut
+	Bonjour
+	fin
+	Bonjour
+	Bonjour
+	Bonjour
+	Bonjour
+	Bonjour
+	Bonjour
+	Bonjour
+	Bonjour
+	Bonjour
+
+#2 Reponse : Meme si le pere se termine, le programme attend la fin de
+	l'execution du fils.
+
+#3
+	Instruction : Thread.join()
+	Resultat :
+		debut
+		Bonjour
+		Bonjour
+		Bonjour
+		Bonjour
+		Bonjour
+		Bonjour
+		Bonjour
+		Bonjour
+		Bonjour
+		Bonjour
+		fin
+Exercice 4
