@@ -2,24 +2,29 @@
 
 main:
     # Chargement de l'adresse de X dans $t6
-    # TODO
+    lui $t6, 0x1001
     # Chargement de l'adresse de Y dans $t7
-    # TODO
+    la $t7, 0x10010020
     # Chargement de l'adresse de fin de X dans $t8
-    # TODO
+    la $t8, 0x10010018
     # Boucle
+loop:
     # $t1 = X[i]
+	lw $t1, 4($t6)
     # $t2 = X[i-1]
+	lw $t2, 0($t6)
     # $t3 = Y[i-1]
-    # TODO
+    lw $t3, 0($t7)
     # $t3 += $t1 + $t2
-    # TODO
+    add $t3, $t1, $t2
     # Écriture de $t3 dans Y[i-1]
-    # TODO
+    sw $t3, 0($t7)
     # Calcul des adresses de X[i] et de Y[i] suivantes
-    # TODO
+    addi $t6, 4
+    addi $t7, 4
     # Condition pour boucler
-    # TODO
+	bne $t6, $t8, loop
+	syscall
 
 .data
 # X

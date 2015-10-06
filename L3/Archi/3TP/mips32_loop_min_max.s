@@ -2,24 +2,32 @@
 
 main:
     # Chargement de l'adresse de X dans $t7
-    # TODO
+    la $t7, 0x10010000
     # Chargement de l'adresse de fin de X dans $t8
-    # TODO
+    la $t8, 0x10010020
     # Initialisation de min et max ($t1 et $t2)
-    # TODO
+    lw $t1, 0($t7)
+    lw $t2, 0($t7)
     # Boucle
+loop:
     # $t3 = X[i]
-    # TODO
+    lw $t3, 0($t7)
     # min
-    # TODO
+    ble $t1, $t3, nmin
+	move $t1, $t3
+nmin:
     # max
-    # TODO
+	bge $t2, $t3, nmax
+	move $t2, $t3
+nmax:
     # Calcul de l'adresses de X[i] suivante
-    # TODO
+    addi $t7, 4
     # Condition pour boucler
-    # TODO
+    bne $t7, $t8, loop
     # Écriture de min et max
-    # TODO
+    sw $t1, 0($t7)
+    sw $t2, 4($t7)
+	syscall
 
 .data
 # X
