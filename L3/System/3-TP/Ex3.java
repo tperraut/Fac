@@ -3,12 +3,17 @@ public class Ex3 extends Thread
 	@Override
 	public void run()
 	{
-		for (int i = 0; i < 10; i++)
-		{
-			try{this.sleep(1000);}
-			catch (Exception e) {}
-			System.out.println("Bonjour");
-		}
+			try
+			{
+				for (int i = 0; i < 10; i++)
+				{
+					System.out.println("Bonjour");
+					this.sleep(1000);
+				}
+			}
+			catch (InterruptedException ex){
+				System.out.println("thread interrupt");
+			}
 	}
 	public static void main(String[] args)
 	{
@@ -16,8 +21,10 @@ public class Ex3 extends Thread
 		System.out.println("debut");
 		t.start();
 		try {
+			sleep(2000);
+			t.interrupt();
 			t.join();
-			sleep(2000);}
+		}
 		catch (Exception e){};
 		System.out.println("fin");
 	}
