@@ -18,7 +18,7 @@ public class ThreadM extends Thread
 	@Override
 	public void run()
 	{
-		Ex5.setVtoRes(mRES, multTable(this.mA.getLi(li),
+		MMperVal.setVtoRes(mRES, multTable(this.mA.getLi(li),
 						this.mB.getLi(co)),
 					this.li, this.co);
 	}

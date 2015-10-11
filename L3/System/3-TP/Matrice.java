@@ -18,6 +18,7 @@ public class Matrice
 		this.line = line;
 		this.M = initMat(line, row, rand);
 	}
+	// Creer une matrice avec des nombres aleatoire
 	private static int[][] initMat(int line, int row, int rand)
 	{
 		int mat[][] = new int [line][row];
