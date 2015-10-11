@@ -22,10 +22,10 @@ public class Matrice
 	{
 		int mat[][] = new int [line][row];
 
-		for (int[] li : mat)
+		for (int i = 0; i < line; i++)
 		{
-			for (int c : li)
-				c = (int)Math.random() * rand;
+			for (int j = 0; j < row; j++)
+				mat[i][j] = (int)(Math.random() * rand);
 		}
 		return mat;
 	}

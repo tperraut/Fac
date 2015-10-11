@@ -1,46 +1,26 @@
+import java.lang.Math;
+
 public class Ex5 extends Thread
 {
-	public static final int LINE = 100;
-	public static final int ROW = 100;
-	private Matrice A;
-	private Matrice B;
-	private static Matrice RES;
-	private int li;
-	private int co;
+	public static final int LINE = 3;
+	public static final int ROW = 3;
+	static Matrice mat1;
+	static Matrice mat2;
+	static Matrice res;
 
-	public Ex5(Matrice matA, Matrice matB, Matrice matRES, int li, int co)
-	{
-		this.A = matA;
-		this.B = matB;
-		this.RES = matRES;
-		this.li = li;
-		this.co = co;
-	}
-
-	@Override
-	public void run()
-	{
-			this.RES.setv(multTable(this.A.getLi(li),
-						this.B.getLi(co)),
-					this.li, this.co);
-	}
-	private int multTable(int l1[], int l2[])
-	{
-		int result = 0;
-
-		for (int i = 0; i < l1.length; i++)
-			result += l1[i] * l2[i];
-		return result;
-	}
 	public static void echoMat(Matrice M)
 	{
 		System.out.println(M.toString());
 	}
+	public static void setVtoRes(Matrice m, int v, int li, int co)
+	{
+		m.setv(v, li, co);
+	}
 	public static void main(String[] args)
 	{
-		Matrice mat1 = new Matrice(LINE, ROW, 10);
-		Matrice mat2 = new Matrice(ROW, LINE, 10);
-		Matrice res = new Matrice(LINE, LINE, 0); // Init res avec des 0
+		mat1 = new Matrice(LINE, ROW, 10);
+		mat2 = new Matrice(ROW, LINE, 10);
+		res = new Matrice(LINE, LINE, 0); // Init res avec des 0
 		Thread t = new Thread();
 		ThreadGroup tg = new ThreadGroup("MM"); // Groupe de thread
 
@@ -48,13 +28,16 @@ public class Ex5 extends Thread
 		{
 			for (int j = 0; j < res.getRow(); j++)
 			{
-			while (tg.activeCount() > 3){} // Ne pas lancer plus de 4 threads
-			t = new Thread(tg, new Ex5(mat1, mat2.gettM(), res,
-						i, j));
-			t.start();
+				while (tg.activeCount() > 3){} // Ne pas lancer plus de 4 threads
+				t = new Thread(tg, new ThreadM(mat1, mat2.gettM(), res,
+							i, j));
+				t.start();
 			}
 		}
-		while (tg.activeCount() != 0){} // Attendre la fin de tous les threads
-		echoMat(RES);
+		// Attendre la fin de tous les threads
+		while (tg.activeCount() != 0){/*System.out.println("wait for it\n");*/}
+		echoMat(mat1);
+		echoMat(mat2);
+		echoMat(res);
 	}
 }
