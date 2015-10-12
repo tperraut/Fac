@@ -21,9 +21,9 @@ public class MMperVal extends Thread
 	public static void main(String[] args)
 	{
 		// Un autre constructeur de matrice est disponible, vois Matrice.java
-		mat1 = new Matrice(LINE, ROW, 10);
-		mat2 = new Matrice(ROW, LINE, 10);
-		res = new Matrice(LINE, LINE, 0); // Init res avec des 0
+		mat1 = new Matrice(LINE, ROW, 10, true);
+		mat2 = new Matrice(ROW, LINE, 10, true);
+		res = new Matrice(LINE, LINE, 0, false); // Init res avec des 0
 		Thread t = new Thread();
 		ThreadGroup tg = new ThreadGroup("MM"); // Groupe de thread
 

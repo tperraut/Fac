@@ -20,10 +20,14 @@ public class MMperLine extends Thread
 	}
 	public static void main(String[] args)
 	{
-		// Un autre constructeur de matrice est disponible, vois Matrice.java
-		mat1 = new Matrice(LINE, ROW, 10);
-		mat2 = new Matrice(ROW, LINE, 10);
-		res = new Matrice(LINE, LINE, 0); // Init res avec des 0
+		/* Petit test que le resultat est bon
+		mat1 = new Matrice(LINE, ROW, 1, false);
+		mat2 = new Matrice(ROW, LINE, 1, false);
+		*/
+		// Un autre constructeur de matrice est disponible, voir Matrice.java
+		mat1 = new Matrice(LINE, ROW, 10, true);
+		mat2 = new Matrice(ROW, LINE, 10, true);
+		res = new Matrice(LINE, LINE, 0, false); // Init res avec des 0
 		Thread t = new Thread();
 		ThreadGroup tg = new ThreadGroup("MM"); // Groupe de thread
 
@@ -32,8 +36,10 @@ public class MMperLine extends Thread
 			while (tg.activeCount() > 3){} // Ne pas avoir plus de 4 threads actif
 			t = new Thread(tg, new ThreadML(mat1, mat2.gettM(), res, i));
 			t.start();
-			if (i / 100 > 0 && i % 100 == 0)
-				tg.list();
+			/* Debug mode
+			 * if (i / 100 > 0 && i % 100 == 0)
+			 * tg.list();
+			 */
 		}
 		// Attendre la fin de tous les threads
 		while (tg.activeCount() != 0){
@@ -41,7 +47,7 @@ public class MMperLine extends Thread
 		}
 		try{t.join();}
 		catch(Exception e){}
-		System.out.println(tg.toString() + "\n");
+		//System.out.println(tg.toString() + "\n"); // Debug Mode
 		mat1.echo();
 		System.out.println("");
 		mat2.echo();

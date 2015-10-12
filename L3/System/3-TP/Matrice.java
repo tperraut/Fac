@@ -12,21 +12,26 @@ public class Matrice
 		this.row = Ma[0].length;
 		this.M = Ma;
 	}
-	public Matrice(int line, int row, int rand)
+	public Matrice(int line, int row, int v, boolean rand)
 	{
 		this.row = row;
 		this.line = line;
-		this.M = initMat(line, row, rand);
+		this.M = initMat(line, row, v, rand);
 	}
 	// Creer une matrice avec des nombres aleatoire
-	private static int[][] initMat(int line, int row, int rand)
+	private static int[][] initMat(int line, int row, int v, boolean rand)
 	{
 		int mat[][] = new int [line][row];
 
 		for (int i = 0; i < line; i++)
 		{
 			for (int j = 0; j < row; j++)
-				mat[i][j] = (int)(Math.random() * rand);
+			{
+				if (rand)
+					mat[i][j] = (int)(Math.random() * v);
+				else
+					mat[i][j] = v;
+			}
 		}
 		return mat;
 	}
