@@ -1,6 +1,6 @@
 import java.lang.Math;
 
-public class MMperVal extends Thread
+public class MMperLine extends Thread
 {
 	// Nbr de ligne de mat1, de colonne de mat2 et de ligne/colonne de res
 	public static final int LINE = 10;
@@ -29,16 +29,19 @@ public class MMperVal extends Thread
 
 		for (int i = 0; i < res.getLine(); i++)
 		{
-			for (int j = 0; j < res.getRow(); j++)
-			{
-				while (tg.activeCount() > 3){} // Ne pas lancer plus de 4 threads
-				t = new Thread(tg, new ThreadM(mat1, mat2.gettM(), res, i, j));
-				t.start();
-			}
-			// System.out.println("ligne finie\n");
+			while (tg.activeCount() > 3){} // Ne pas avoir plus de 4 threads actif
+			t = new Thread(tg, new ThreadML(mat1, mat2.gettM(), res, i));
+			t.start();
+			if (i / 100 > 0 && i % 100 == 0)
+				tg.list();
 		}
 		// Attendre la fin de tous les threads
-		while (tg.activeCount() != 0){/*System.out.println("wait for it\n");*/}
+		while (tg.activeCount() != 0){
+			//System.out.println("wait for it\n");
+		}
+		try{t.join();}
+		catch(Exception e){}
+		System.out.println(tg.toString() + "\n");
 		mat1.echo();
 		System.out.println("");
 		mat2.echo();

@@ -199,4 +199,21 @@ public class Ex3 extends Thread
 		fin
 
 Exercice 4
-	
+
+#1
+#2
+	Reponse : Il suffit de compiler MMperVal.java il va avec le fichier ThreadM.java
+		le programme genere 2 matrice aleatoire et realise la mutiplication.
+
+#3
+	Reponse : Il suffit de compiler MMperLine.java, il va avec le fichier ThreadML.java
+		le programme genere 2 matrice aleatoire et realise la mutiplication.
+
+	PS : Le fichier Matrice.java est commun aux deux programmes et definie une matrice
+	avec des methodes appropriees.
+	Pour changer les tailles des matrices, il suffit de changer les variables
+	final LINE et ROW des fichier MMperVal.java ou MMperLine.java ou de definir
+	des matrices manuellement comme tableau d'entier a deux dimensions et d'appeler
+	le constructeur de Matrice.
+	MMperVal resoud une multiplication de matrice 100*100 en quelques secondes
+	tandis que MMperLine en resoud une de matrice 1000*1000.

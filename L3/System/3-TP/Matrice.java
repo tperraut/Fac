@@ -82,4 +82,14 @@ public class Matrice
 		}
 		return s;
 	}
+	public void echo()
+	{
+		for (int li[] : this.M)
+		{
+			System.out.print("(");
+			for (int c : li)
+				System.out.print(" " + c);
+			System.out.println(" )");
+		}
+	}
 }
