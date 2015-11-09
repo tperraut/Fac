@@ -41,19 +41,14 @@ Exercice 2
 #1
 	Reponse : La condition C1 est verifie, les deux autres ne le sont pas.
 
-#2
+#2-3
 	Pseudo-code :
 
 	public class Processus exteds Thread
 	{
 		Base base;
-		Semaphore sem;
 
-		public Processus(Base b, Semaphore s)
-		{
-			this.base = b;
-			this.sem = s;
-		}
+		public Processus(Base b){base = b;}
 		public void run()
 		{
 			int x;
@@ -66,10 +61,49 @@ Exercice 2
 		}
 		public void lire()
 		{
+			b.acquerirVerrouLecteur();
 			sleep(Math.Random() * 100);
+			b.relacherVerrouLecteur();
 		}
 		public void read()
 		{
+			b.acquerirVerrouEcrivain();
 			sleep(Math.Random() * 100);
+			b.relacherVerrouEcrivain();
 		}
 	}
+
+	public class Base
+	{
+		int nbLecteurs = 0;
+		Semaphore sem1 = new Semaphore();
+		Semaphore sem2 = new Semaphore();
+
+		void acquerirVerrouEcrivain(){sem1.acquire();}
+		void relacherVerrouEcrivain(){sem1.release();}
+		void acquerirVerrouLecteur()
+		{
+			sem2.acquire();
+			if (nbLecteurs == 0)
+				sem1.acquire();
+			++nbLecteurs;
+			sem2.release();
+		}
+		void relacherVerrouLecteur()
+		{
+			sem2.acquire();
+			--nbLecteur;
+			if (nbLecteurs == 0)
+				sem1.release();
+			sem2.release();
+		}
+	}
+
+#4
+	Reponse : Non, il y a toujours une famine, il faudrait empecher l'arrivee
+		de nouveaux lecteurs quans le verrou d'ecriture est demande par un
+		ecrivain.
+
+Exercice 3
+
+#1 
