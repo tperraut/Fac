@@ -1,0 +1,11 @@
+# Installation (With CMake)
+# -------------------------
+if [ $1 == "rm" ]
+then
+	rm -r build
+else
+	mkdir build && cd build && cmake .. && make
+fi
+# make doxygen
+# make test
+# make install # su -c "make install" # sudo make install
