@@ -1,14 +1,18 @@
 #!/bin/bash
 
-ARG=$1
-if [ -z $ARG ]
+ARGS=$@
+if [ -z $ARGS ]
 then
 	echo "Aucun argument passe"
 else
-	./build/test__matmul $ARG &&
-	./build/test__matmul_B_ji $ARG &&
-	./build/test__matmul_ikj $ARG &&
-	./build/test__vector $ARG &&
-	./build/test__list $ARG &&
-	./build/test__add_and_remove $ARG
+	for ARG in $*
+	do
+		./build/test__matmul $ARG &&
+			./build/test__matmul_B_ji $ARG &&
+			./build/test__matmul_ikj $ARG &&
+			./build/test__vector $ARG &&
+			./build/test__list $ARG &&
+			./build/test__add_and_remove $ARG &&
+			echo -e "\n\n"
+	done
 fi
