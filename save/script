@@ -1,0 +1,15 @@
+#!/bin/bash
+RAR=( $(ls *.rar))
+#ZIP=( $(ls *.zip))
+
+for nom in ${@}
+do
+	echo "Recherche : $nom"
+	for archive in ${RAR[*]}
+	do
+		if [ $(grep -c $nom $archive) != 0 ]
+		then
+			echo -e "\t$archive"
+		fi
+	done
+done
