@@ -1,0 +1,6 @@
+max.c : prouvé avec Alt-Ergo
+mintab : prouvé avec Alt-Ergo
+sqrt : besoin de CVC4 pour prouver la préservation de l'invariant sum = (i+1)*(i+1)
+allzeros : prouvé par Alt-Ergo
+binarysearch : prouvé par Alt-Ergo
+selectionsort : prouvé par Alt-Ergo

@@ -1,0 +1,30 @@
+module SelectionSort
+
+use import int.Int
+use import ref.Ref
+use import array.Array
+
+val swap (t : array int) (i j : int): unit
+  requires { 0 <= i < length t }
+  requires { 0 <= j < length t }
+  ensures { t[i] = old t[j] /\ t[j] = old t[i] }
+  ensures { forall k:int. 0 <= k < length t /\ k <> i /\ k <> j -> t[k] = (old t)[k] }
+
+let selectionsort (t : array int) =
+  ensures { forall i j:int. 0 <= i <= j < length t -> t[i] <= t[j] }
+  for i = 0 to length t - 1 do
+    invariant { 0 <= i <= length t }
+    invariant { forall k l:int. 0 <= k <= l < i -> t[k] <= t[l] }
+    invariant { forall k l:int. 0 <= k < i /\ i <= l < length t -> t[k] <= t[l] }
+    let min = ref i in
+    for j = i + 1 to length t - 1 do
+      invariant { i+1 <= j <= length t }
+      invariant { i <= !min < j }
+      invariant { forall k:int. i <= k < j -> t[!min] <= t[k] }
+      if (t[j] < t[!min])
+      then min := j
+    done;
+    swap t i !min
+  done
+
+end 
