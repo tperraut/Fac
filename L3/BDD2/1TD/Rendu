@@ -1,0 +1,12 @@
+TRAITEMENT_1(n, a) :
+	INSERT INTO Client(nom, age) VALUES(n, a);
+
+TRAITEMENT_2(id, v, j) :
+	SELECT idv, prix, activite FROM Village WHERE ville = v
+		ORDER BY prix DESC LIMIT 1;
+	INSERT INTO Sejour(idv, idc, jour) VALUES(idv, id, j);
+	UPDATE Client SET avoir = avoir - prix WHERE idc = id;
+
+TRAITEMENT_3(j) :
+	SELECT COUNT(*) AS nb FROM Sejour WHERE jour < j;
+	DELETE FROM Sejour WHERE jour < j;

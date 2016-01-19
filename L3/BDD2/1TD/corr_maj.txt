@@ -1,0 +1,56 @@
+-------------------------------------------------------------------------------
+-- corr_maj.txt
+-- version du 8/2/2015
+-------------------------------------------------------------------------------
+
+programmeur p :
+0. (action 0) creation des tables
+
+employes e1, ..., en :
+1. (action 1) creer villages (insert village)
+2. consulter villages (select village)
+3. modifier villages (update activite et capacite dans village)
+4. consulter sejours (select sejour)
+5. traitement 3 (j) =
+     select count sejour where jour < j : k
+     delete sejour where jour < j
+
+clients c1, ..., cm :
+6. traitement 1 (n,a) = 
+     insert client(n,a) : ic
+7. traitement 2 (i,n,v,j) =
+     // identifiant et nom pour s'authentifier
+     select village where ville = v : iv, p, act
+     insert sejour(ic,iv,j) : is
+     update client avoir = avoir - p where idc = ic and nom = n
+8. consulter villages pour lesquels aucun sejour :
+     select village where idv not in sejour
+9. consulter toutes ses informations (i,n) 
+     consulter client(i,n) = select client where idc = i and nom = n
+     consulter sejour(i,n) = select sejour where idc,nom = i,n
+     consulter village(i,n) =
+       select village where village.idv = sejour.idv and idc,nom = i,n
+
+Contraintes :
+
+CLIENT :
+	IDC -> PRIMARY KEY
+	NOM -> NOT NULL
+	AGE -> NOT NULL, CHECK 17 < age < 150
+	AVOIR -> NOT NULL, CHECK 0 < avoir
+
+VILLAGE :
+	IDV -> PRIMARY KEY
+	VILLE -> NOT NULL
+	ACTIVITE
+	PRIX -> NOT NULL, CHECK 0 < prix
+	CAPACITE -> NOT NULL, CHECK 0 < capacite
+
+SEJOUR :
+	IDS -> PRIMARY KEY
+	IDC -> FOREIGN KEY CLIENT(idc), NOT NULL
+	IDV -> FOREIGN KEY VILLAGE(idv), NOT NULL
+	JOUR -> NOT NULL, CHECK 0 < jour < 366
+	(IDS, JOUR) -> UNIQUE
+
+-------------------------------------------------------------------------------
