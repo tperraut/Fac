@@ -1,0 +1,59 @@
+#!/bin/bash
+#A.1
+if [ -e manpage.txt ]
+then
+	echo "manpage.txt existe deja"
+else
+touch manpage.txt
+man ping >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man nslookup >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man ifconfig >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man netstat >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man arp >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man route >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man traceroute >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man telnet >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man ftp >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man who >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man finger >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man last >> manpage.txt
+fi
+
+#A.2
+whoami
+#Renvoie le nom d'utilisateur de la personne qui tape la commande.
+
+#A.3
+ping -c 10 -i 3 pluton
+#Envoie un paquet toute les 3 secondes a pluton.
+
+netstat -c -p -tcp &
+#Affiche les protocoles tcp des programmes de la machine avec leur nom et leur
+# PID en continu (rafraichissement chaque seconde).
+
+#A.4
+ifconfig eth0 NOUVELLE_IP
+
+#A.5
+ifconfig eth0 netmask 255.0.0.0
+ping 129.175.252.205
+#Nous appartenons deja au meme reseau et si ce n'est pas le cas, le debut
+# d'adresse est le meme, il suffit juste d'ajuster le masque.
+
+#A.6
+echo "129.175.252.205	bob	bob" >> /etc/hosts
+ping bob
+#Meme resultat que precedemment
+
+
