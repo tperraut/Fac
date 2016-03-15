@@ -8,21 +8,20 @@ type exp =
 ;;
 
 let rec contient_epsilon = function
-    | Empty -> false
-    | Char(c) -> false
+    | Empty || Char(c) -> false
     | Or(r1, r2) -> contient_epsilon r1 || contient_epsilon r2
     | Concat(r1, r2) -> contient_epsilon r1 && contient_epsilon r2
-    | _ -> true
+    | _ -> true (*Star ou Epsilon*)
 ;;
 
-let residu r c =
+let rec residu r c =
     match r with
-    | Empty -> Empty
     | Char(x) when x = c -> Epsilon
-    | Char(x) -> Empty
+    | Empty || Epsilon || Char(x) -> Empty
     | Or(r1, r2) -> Or((residu r1 c), (residu r2 c))
-    | Concat(r1, _) -> residu r1 c
-    | Star(r1) -> 
+    | Concat(r1, r2) when r1 != Epsilon -> Concat((residu r1 c), r2)
+    | Concat (_, r2) -> residu r2 c
+    | Star(r1) -> Star((residu r1 c))
 ;;
 
 let rec reconnait r w =
