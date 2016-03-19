@@ -16,6 +16,7 @@ LIB =
 HEADERS = ./include
 NAME = opti
 SRC = \
+	  src/resolve.c \
 	  src/cmp_obj.c \
 	  src/sol_affiche.c \
 	  src/parser.c \
