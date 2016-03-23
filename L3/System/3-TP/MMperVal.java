@@ -3,9 +3,9 @@ import java.lang.Math;
 public class MMperVal extends Thread
 {
 	// Nbr de ligne de mat1, de colonne de mat2 et de ligne/colonne de res
-	public static final int LINE = 10;
+	public static final int LINE = 100;
 	// Nbr de colonne de mat1 et de ligne de mat2
-	public static final int ROW = 9;
+	public static final int ROW = 100;
 	static Matrice mat1;
 	static Matrice mat2;
 	static Matrice res;
@@ -39,10 +39,10 @@ public class MMperVal extends Thread
 		}
 		// Attendre la fin de tous les threads
 		while (tg.activeCount() != 0){/*System.out.println("wait for it\n");*/}
-		mat1.echo();
-		System.out.println("");
-		mat2.echo();
-		System.out.println("");
+		//mat1.echo();
+		//System.out.println("");
+		//mat2.echo();
+		//System.out.println("");
 		res.echo();
 	}
 }
