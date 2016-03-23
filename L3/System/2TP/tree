@@ -1,0 +1,105 @@
+systemd-+-NetworkManager-+-dhclient
+        |                |-{gdbus}
+        |                `-{gmain}
+        |-8*[conky---2*[{conky}]]
+        |-cupsd
+        |-dbus-daemon
+        |-gpg-agent
+        |-login---bash---startx---xinit-+-Xorg-+-xf86-video-inte
+        |                               |      `-3*[{Xorg}]
+        |                               `-sh---xfce4-session-+-Thunar-+-{gdbus}
+        |                                                    |        `-{gmain}
+        |                                                    |-clipit---{gdbus}
+        |                                                    |-nm-applet---{gdbus}
+        |                                                    |-polkit-gnome-au---{gdbus}
+        |                                                    |-xfce4-panel-+-chromium-+-chrome-sandbox---chromium-+-chrome-sandbox-+
+        |                                                    |             |          |                           `-chromium-+-chro+
+        |                                                    |             |          |                                      |-2*[c+
+        |                                                    |             |          |                                      |-chro+
+        |                                                    |             |          |                                      `-chro+
+        |                                                    |             |          |-chromium-+-chromium
+        |                                                    |             |          |          |-{Chrome_ChildIOT}
+        |                                                    |             |          |          `-{Watchdog}
+        |                                                    |             |          |-{AudioThread}
+        |                                                    |             |          |-3*[{BrowserBlocking}]
+        |                                                    |             |          |-{BrowserWatchdog}
+        |                                                    |             |          |-2*[{CachePoolWorker}]
+        |                                                    |             |          |-{Chrome_CacheThr}
+        |                                                    |             |          |-{Chrome_DBThread}
+        |                                                    |             |          |-{Chrome_FileThre}
+        |                                                    |             |          |-{Chrome_FileUser}
+        |                                                    |             |          |-{Chrome_HistoryT}
+        |                                                    |             |          |-{Chrome_IOThread}
+        |                                                    |             |          |-{Chrome_ProcessL}
+        |                                                    |             |          |-{Chrome_SyncThre}
+        |                                                    |             |          |-{CompositorTileW}
+        |                                                    |             |          |-{CrShutdownDetec}
+        |                                                    |             |          |-{IndexedDB}
+        |                                                    |             |          |-{LevelDBEnv}
+        |                                                    |             |          |-{NSS SSL ThreadW}
+        |                                                    |             |          |-{NetworkChangeNo}
+        |                                                    |             |          |-2*[{SimpleCacheWork}]
+        |                                                    |             |          |-{WorkerPool/1322}
+        |                                                    |             |          |-{chromium}
+        |                                                    |             |          |-{extension_crash}
+        |                                                    |             |          |-{gdbus}
+        |                                                    |             |          |-{gpu-process_cra}
+        |                                                    |             |          |-{handle-watcher-}
+        |                                                    |             |          |-{inotify_reader}
+        |                                                    |             |          |-{renderer_crash_}
+        |                                                    |             |          `-{sandbox_ipc_thr}
+        |                                                    |             |-panel-13-systra
+        |                                                    |             |-panel-2-mixer-+-{gdbus}
+        |                                                    |             |               `-{task0}
+        |                                                    |             |-panel-9-power-m---{gdbus}
+        |                                                    |             |-terminator-+-bash---vim
+        |                                                    |             |            |-bash---pstree
+        |                                                    |             |            |-bash---a.out---a.out
+        |                                                    |             |            |-gnome-pty-helpe
+        |                                                    |             |            |-{gdbus}
+        |                                                    |             |            `-{gmain}
+        |                                                    |             |-xfce4-xkb-plugi---{gdbus}
+        |                                                    |             |-{gdbus}
+        |                                                    |             `-{gmain}
+        |                                                    |-xfdesktop-+-{gdbus}
+        |                                                    |           `-{gmain}
+        |                                                    |-xfwm4
+        |                                                    |-{gdbus}
+        |                                                    `-{gmain}
+        |-polkitd-+-{JS GC Helper}
+        |         |-{JS Sour~ Thread}
+        |         |-{gdbus}
+        |         |-{gmain}
+        |         `-{runaway-killer-}
+        |-ssh-agent
+        |-systemd-+-(sd-pam)
+        |         |-at-spi-bus-laun-+-dbus-daemon
+        |         |                 |-{gdbus}
+        |         |                 `-{gmain}
+        |         |-at-spi2-registr---{gdbus}
+        |         |-dbus-daemon
+        |         |-gnome-keyring-d-+-{gmain}
+        |         |                 `-{timer}
+        |         |-gvfs-udisks2-vo-+-{gdbus}
+        |         |                 `-{gmain}
+        |         |-gvfsd---{gdbus}
+        |         |-gvfsd-fuse-+-{gdbus}
+        |         |            |-{gvfs-fuse-sub}
+        |         |            `-2*[{gvfsd-fuse}]
+        |         |-gvfsd-trash-+-{gdbus}
+        |         |             `-{gmain}
+        |         `-xfconfd
+        |-systemd-journal
+        |-systemd-logind
+        |-systemd-udevd
+        |-udisksd-+-{cleanup}
+        |         |-{gdbus}
+        |         |-{gmain}
+        |         `-{probing-thread}
+        |-upowerd-+-{gdbus}
+        |         `-{gmain}
+        |-wpa_supplicant
+        |-xfce4-power-man---{gdbus}
+        |-xfce4-power-man
+        `-xfsettingsd-+-{gdbus}
+                      `-{gmain}

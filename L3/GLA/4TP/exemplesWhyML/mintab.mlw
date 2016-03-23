@@ -1,0 +1,21 @@
+module MinTab
+
+use import int.Int
+use import ref.Refint
+use import array.Array
+
+let mintab (t: array int) : int =
+  requires { length t > 0 }
+  ensures { forall i:int. 0 <= i < length t -> result <= t[i] }
+  ensures { exists i:int. 0 <= i < length t /\ t[i] = result }
+  let m = ref t[0] in
+  for i=1 to length t - 1 do
+    invariant { 0 <= i <= length t }
+    invariant { forall j:int. 0 <= j < i -> !m <= t[j] }
+    invariant { exists j:int. 0 <= j < i /\ t[j] = !m }
+    if t[i] < !m
+    then m := t[i];
+  done;
+  !m
+
+end

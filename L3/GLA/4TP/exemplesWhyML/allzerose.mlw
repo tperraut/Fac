@@ -1,0 +1,22 @@
+module AllZeros
+
+use import bool.Bool
+use import int.Int
+use import ref.Refint
+use import array.Array
+
+exception Return bool (* raised to exit the loop and directly return a result *)
+
+let allzeros(t: array int) : bool =
+  ensures { result <-> (forall i:int. 0 <= i < length t -> t[i] = 0) }
+  try for i=0 to length t - 1 do
+        invariant { 0 <= i <= length t }
+        invariant { forall j:int. 0 <= j < i -> t[j] = 0 }
+        if (t[i] <> 0)
+        then raise (Return false);
+      done;
+      true
+  with
+      Return b -> b
+  end
+end

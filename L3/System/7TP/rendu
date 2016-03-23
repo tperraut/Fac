@@ -1,0 +1,37 @@
+L3 - 2015
+Thomas Perraut
+mythom008@gmail.com
+https://github.com/tiger008
+
+Exercice 3
+
+#1
+	Commande : mkdir ex2 && touch ex2/fichier1
+
+#2
+	Commande : chmod u+x ex2/fichier1 && chmod go-wx
+
+#3
+	Commande : ln fichier1 liendur
+
+#4
+	Commande : ln -s fichier1 liensymbolique
+
+#5
+	Commande : ls -li
+	Resultat :
+	total 0
+	11147478 -rwxr--r-- 2 tiger 0 21 nov.  11:16 fichier1
+	11147478 -rwxr--r-- 2 tiger 0 21 nov.  11:16 liendur
+	11147523 lrwxrwxrwx 1 tiger 8 21 nov.  11:16 liensymbolique -> fichier1
+
+	Reponse : On constate que l'inode du lien symbolique est différente
+		des deux autres.
+
+	#6
+	Commande : rm fichier1 && cat liendur && cat liensymbolique
+	Resultat :
+		cat: liensymbolique: Aucun fichier ou dossier de ce type
+
+	Reponse : On peut afficher le contenu du lien physique mais pas celui
+		du lien symbolique.

@@ -11,10 +11,9 @@
 # **************************************************************************** #
 
 OC=ocamlc
-LIB=unix.cma
+LIB=graphics.cma
 SRC= \
-	 toWin.ml\
-	 doit.ml
+	 TP2.ml
 NAME=$(SRC:.ml=.exe)
 OBJO=$(SRC:.ml=.cmo)
 OBJI=$(SRC:.ml=.cmi)

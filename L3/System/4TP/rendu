@@ -1,0 +1,109 @@
+L3 - 2015
+Thomas Perraut
+mythom008@gmail.com
+htts://github.com/tiger008
+
+Exercice 1
+
+#1
+	Reponse : Une section critique est une portion de code dans laquelle il doit
+		etre garanti qu'il n'y aura jamais plus d'une thread simultanement.(wiki)
+
+#2
+	Reponse : Propriété d'une section critique :
+		> Exclusion mutuelle : Pas deux thread qui execute une section critique en
+			meme temps.
+		> Deroulement : Une thread qui souhqite rentrer en section critique ne peut
+			pas decider qui rentre en secion critique.
+		> Attente bornée : Une thread qui veut rentrer en section critique y rentre
+			en un temps bornee.
+
+#3
+	Reponse : Il faut connaitre a l'avance le nombre de processus et le id et les
+		processus font de l'attente active.
+
+#4
+	Reponse : Risque d'interblocage lorsqu'on utilise plusieur sémaphores et
+		necessie des appels systeme.
+
+#5
+	Reponse :
+		> Une ressource au moins est protegee par un mecanisme de synchronisation;
+		> Un processus possede une ressource et est en attente d'autres qui sont
+			detenues par d'autres processus
+		> Ces ressouces ne peuven pas etre preemptees : seul leur prossesseurs
+			peuvent les liberer
+		> L'attente est circulaire : il existe un sous ensemble P1, ..., Pn tel que
+			chaque Pi qttend une ressource detenue par P(i+1)
+
+Exercice 2
+
+#1
+	Reponse : La condition C1 est verifie, les deux autres ne le sont pas.
+
+#2-3
+	Pseudo-code :
+
+	public class Processus exteds Thread
+	{
+		Base base;
+
+		public Processus(Base b){base = b;}
+		public void run()
+		{
+			int x;
+			while(true)
+			{
+				x = Math.Random() * 100;
+				sleep(x);
+				(x % 2 == 0) ? this.lire() : this.read();
+			}
+		}
+		public void lire()
+		{
+			b.acquerirVerrouLecteur();
+			sleep(Math.Random() * 100);
+			b.relacherVerrouLecteur();
+		}
+		public void read()
+		{
+			b.acquerirVerrouEcrivain();
+			sleep(Math.Random() * 100);
+			b.relacherVerrouEcrivain();
+		}
+	}
+
+	public class Base
+	{
+		int nbLecteurs = 0;
+		Semaphore sem1 = new Semaphore();
+		Semaphore sem2 = new Semaphore();
+
+		void acquerirVerrouEcrivain(){sem1.acquire();}
+		void relacherVerrouEcrivain(){sem1.release();}
+		void acquerirVerrouLecteur()
+		{
+			sem2.acquire();
+			if (nbLecteurs == 0)
+				sem1.acquire();
+			++nbLecteurs;
+			sem2.release();
+		}
+		void relacherVerrouLecteur()
+		{
+			sem2.acquire();
+			--nbLecteur;
+			if (nbLecteurs == 0)
+				sem1.release();
+			sem2.release();
+		}
+	}
+
+#4
+	Reponse : Non, il y a toujours une famine, il faudrait empecher l'arrivee
+		de nouveaux lecteurs quans le verrou d'ecriture est demande par un
+		ecrivain.
+
+Exercice 3
+
+#1 

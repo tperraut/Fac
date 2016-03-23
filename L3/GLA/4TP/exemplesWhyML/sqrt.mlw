@@ -1,0 +1,24 @@
+module Sqrt
+
+use import int.Int
+use import ref.Refint
+
+let sqrt(a : int) : int =
+  requires { a >= 0 }
+  ensures { result * result <= a /\ a < (result + 1) * (result + 1) } 
+  let i = ref 0 in
+  let tm = ref 1 in
+  let sum = ref 1 in
+  while (!sum <= a) do
+    invariant { !sum = (!i + 1) * (!i + 1) }
+    invariant { !tm = 2 * !i + 1 }
+    invariant { !i * !i <= a }
+    invariant { !tm > 0 }
+    variant { a - !sum }
+    i := !i + 1;
+    tm := !tm + 2;
+    sum := !sum + !tm
+  done;
+  !i
+
+end

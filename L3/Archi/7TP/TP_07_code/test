@@ -1,0 +1,43 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+	echo -e "Aucun argument passe\nUtilisation : ./test nb_of_test_foreach_arg arg1 arg2 ... argn"
+else
+	n=$1
+	shift
+	for arg in $@;
+	do
+		for i in `seq 1 $n`;
+		do
+			./build/test__matmul $arg &&
+				echo -e "\n"
+		done
+		for i in `seq 1 $n`;
+		do
+			./build/test__matmul_B_ji $arg &&
+				echo -e "\n"
+		done
+		for i in `seq 1 $n`;
+		do
+			./build/test__matmul_ikj $arg &&
+				echo -e "\n"
+		done
+		for i in `seq 1 $n`;
+		do
+			./build/test__vector $arg &&
+				echo -e "\n"
+		done
+		for i in `seq 1 $n`;
+		do
+			./build/test__list $arg &&
+				echo -e "\n"
+		done
+		for i in `seq 1 $n`;
+		do
+			./build/test__add_and_remove $arg &&
+				echo -e "\n"
+		done
+		echo -e "\n\n"
+	done
+fi

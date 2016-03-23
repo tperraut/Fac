@@ -1,0 +1,123 @@
+L3 - 2015
+Thomas Perraut
+mythom008@gmail.com
+https://github.com/tiger008
+
+Exercice 1
+
+#1
+	Reponse : L'edition de lien consiste a faire correspondre les adresses
+		symboliques des processus aux adresses physiques.
+
+#2
+	Reponse : La segmentation, la pagination et les partitions fixes.
+
+#3
+	Reponse : La pagination consiste a decouper la memoire en un certain
+		nombre de page de taille fixe.
+
+#4
+	Reponse : La pagination est couteuse en espace memoire.
+
+#5
+	Reponse : Les algorithmes first fit et big fit.
+
+Exercice 2
+
+#1
+	P1 :  Processus de 12K
+	P2 :  Processus de 10K
+	P3 :  Processus de 9K
+
+	            10K 5K 20K 18K 7K 9K 4K 12K 15K
+	First fit : P2     P1  P3
+	Best fit :  P2                P3    P1
+	Worse fit :        P1  P2               P3
+
+#2
+	First fit : (8 + 0 + 9) / (10 + 20 + 18) = 35%
+	Best fit : 0%
+	Worse fit : (8 + 8 + 6) / (20 + 18 + 15) = 41%
+
+#3
+	
+
+Exercice 3
+
+#1
+	Reponse : Avec un offset de 16 bits, la taille d'une page est de 2^16 octects.
+
+#2
+	Reponse : La taille de la memoire physique est de 2^15 * 2^16 soit 2Go.
+
+#3
+	Reponse : La taille de la memoire virtuelle est de 2^16 * 2^16 soit 4Go.
+
+#4
+
+Exercice 4
+
+#1
+	0, 1, 4, 2, 0, 1, 3, 0, 1, 4, 2, 3
+
+	0, 1, 4
+	1, 4, 2
+	4, 2, 0
+	2, 0, 1
+	0, 1, 3
+	1, 3, 4
+	3, 4, 2
+
+	Reponse : Il y a 7 defauts de page.
+
+#2
+	0, 1, 4, 2, 0, 1, 3, 0, 1, 4, 2, 3
+
+	0, 1, 4
+	0, 0, 0
+
+	2, 1, 4
+	0, 1, 1
+
+	2, 0, 4
+	0, 0, 1
+
+	2, 0, 1
+	0, 0, 0
+
+	3, 0, 1
+	0, 1, 1
+
+	3, 0, 1
+	0, 0, 1
+
+	3, 0, 1
+	0, 0, 0
+
+	4, 0, 1
+	0, 1, 1
+
+	4, 2, 1
+	0, 0, 1
+
+	4, 2, 3
+	0, 0, 0
+
+Reponse :  Il y a 8 defauts de page
+
+#3
+
+Le meilleur remplacement avec seulement 5 defauts de page:
+
+0, 1, 4
+0, 1, 2
+0, 1, 3
+0, 4, 3
+2, 4, 3
+
+
+Exercice 5
+
+#1
+	Reponse : On ne peut pas retourner l'adresse d'une variable locale.
+

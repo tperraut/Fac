@@ -1,0 +1,10 @@
+module Max
+
+use import int.Int
+
+let max (x y:int) : int =
+  ensures { (result = x \/ result = y) }
+  ensures { result >= y /\ result >= y }
+  if(x > y) then x else y
+
+end

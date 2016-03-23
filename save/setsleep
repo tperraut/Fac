@@ -1,0 +1,13 @@
+#!/bin/bash
+case $1 in
+	on)
+xset +dpms;xset s $1
+;;
+off)
+xset -dpms;xset s $1
+;;
+*)
+echo "Usage: $0 on|off"
+;;
+esac
+xset q | grep -A 2 -e "Screen Saver" -e "DPMS ("

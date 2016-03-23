@@ -1,0 +1,102 @@
+#!/bin/bash
+#A.1
+echo -e "\033[1;4;30;47mQuestion A1\033[0m"
+if [ -e manpage.txt ]
+then
+	echo -e "\033[1;31mmanpage.txt existe deja\033[0m"
+else
+touch manpage.txt
+man ping >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man nslookup >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man ifconfig >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man netstat >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man arp >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man route >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man traceroute >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man telnet >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man ftp >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man who >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man finger >> manpage.txt
+echo "%%SEPARATOR%%" >> manpage.txt
+man last >> manpage.txt
+echo -e "\033[1;32mDONE\033[0m"
+fi
+sleep 1
+#A.2
+echo -e "\033[1;4;30;47mQuestion A2\033[0m"
+echo -e "\033[1mRenvoie du nom d'utilisateur courant\033[0m"
+whoami
+sleep 1
+
+#A.3
+echo -e "\033[1;4;30;47mQuestion A3\033[0m"
+echo -e "\033[1mOn envoie un paquet toute les 3 secondes a pluton.\033[0m"
+ping -c 10 -i 3 pluton
+echo -e "\033[1m\nOn affiche les protocoles tcp des programmes de la machine avec leur nom et leur PID en
+continu (rafraichissement chaque seconde). J'y ajoute un timeout de 2s\n\033[0m"
+sleep 3
+timeout 2 netstat -c -p -tcp
+
+
+#A.4
+echo -e "\033[1;4;30;47mQuestion A4\033[0m"
+echo -e "\033[1mQuelle adress ip voulez vous?\033[0m"
+read NOUVELLE_IP
+echo -e "\033[1;32mChangement de l'adresse ip\033[0m"
+ifconfig eth0 NOUVELLE_IP
+
+#A.5
+echo -e "\033[1;4;30;47mQuestion A5\033[0m"
+echo -e "\033[1mNous appartenons deja au meme reseau et si ce n'est pas le cas, le debut
+d'adresse est le meme, il suffit juste d'ajuster le masque.\033[0m"
+sleep 2
+echo -e "\033[1;32mSauvegarde de l'ancien masque\033[0m"
+MASK=`ifconfig eth0 | grep netmask | cut -d' ' -f13`
+echo -e "\033[1;32mChangement de masque pour 255.0.0.0\033[0m"
+ifconfig eth0 netmask 255.0.0.0
+echo -e "\033[1;32mPing d'une machine\033[0m"
+ping 129.175.252.205
+echo -e "\033[1;32mRestitution de l'ancien masque\033[0m"
+ifconfig eth0 netmask $MASK
+
+
+#A.6
+echo -e "\033[1;4;30;47mQuestion A6\033[0m"
+echo -e "\033[1;32mModification du fichier hosts\033[0m"
+echo "129.175.252.205	bob	bob" >> /etc/hosts
+ping bob
+
+#A.7
+echo -e "\033[1;4;30;47mQuestion A7\033[0m"
+USER="anonymous"
+PASSW="anonymous"
+echo -e "\033[1;32mConnexion et téléchargement du fichier 100KB.zip sur ftp://speedtest.tele2.net/\033[0m"
+ftp -n 90.130.70.73 <<END_SCRIPT
+user $USER $PASSW
+get 100KB.zip
+quit
+END_SCRIPT
+#Download file from ftp://speedtest.tele2.net/
+
+#A.8
+echo -e "\033[1;4;30;47mQuestion A8\033[0m"
+echo -e "\033[1mConfiguration actuelle du réseau\033[0m"
+netstat -i
+echo -e "\033[1mAdresse mac de l'interface par défaut\033[0m"
+arp
+
+#B1
+cp /etc/xinetd.conf ./
+
+#B2
+exit 0

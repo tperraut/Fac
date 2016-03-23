@@ -1,0 +1,23 @@
+module AllZeros
+
+use import bool.Bool
+use import int.Int
+use import ref.Refint
+use import array.Array
+
+let allzeros(t: array int) : bool =
+  ensures { result <-> (forall i:int. 0 <= i < length t -> t[i] = 0) }
+  let res = ref true in
+  let i = ref 0 in
+  while (!i < length t && !res) do
+    invariant { 0 <= !i <= length t }
+    invariant { !res <-> forall j:int. 0 <= j < !i -> t[j] = 0 }
+    invariant { not !res -> t[!i-1] <> 0 }
+    variant { length t - !i }
+    if (t[!i] <> 0)
+    then res := false;
+    i := !i + 1
+  done;
+  !res
+
+end
