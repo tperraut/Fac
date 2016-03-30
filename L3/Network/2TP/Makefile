@@ -2,27 +2,27 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 LIB =
 HEADERS = ./include
-NAME = tp2.exe
 SRC = \
-	  src/serveur_tcp.c \
 	  src/serveur_udp.c \
-	  src/client_tcp.c \
-	  src/client_udp.c
+	  src/client_udp.c #\
+	  src/serveur_tcp.c \
+	  src/client_tcp.c
 
 OBJ = $(SRC:.c=.o)
+EXE = $(SRC:.c=.exe)
 
-all: $(NAME)
+all: $(EXE)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^ -I $(HEADERS) -I $(LIB)
+%.exe:%.o
+	$(CC) $(CFLAGS) -o $@ $< -I $(HEADERS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< -I $(HEADERS) -I $(LIB)
+	$(CC) $(CFLAGS) -o $@ -c $< -I $(HEADERS)
 
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(EXE)
 
 re: fclean all
