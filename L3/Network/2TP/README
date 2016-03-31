@@ -1,0 +1,7 @@
+To test my work :
+./serveur_udp.exe &
+./client_udp.exe localhost
+"write what you want..."
+
+ctrl+D to stop client
+tape fg and then ctrl+C to stop server
