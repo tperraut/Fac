@@ -3,8 +3,8 @@ CFLAGS = -Wall -Werror -Wextra
 LIB =
 HEADERS = ./include
 SRC = \
-	  src/serveur_udp.c \
-	  src/client_udp.c #\
+	  src/serveur_udp.c #\
+	  src/client_udp.c \
 	  src/serveur_tcp.c \
 	  src/client_tcp.c
 
