@@ -6,6 +6,7 @@
 # define BUF_SIZE 2048
 # define INADDR 0x7F000001
 # define FLAGS 0
+# define MAX_CLIENT 10
 
 typedef int		SOCKET;
 typedef struct	sockaddr_in SOCKADDR_IN;

@@ -12,17 +12,16 @@
 
 int	main(int argc, char **argv)
 {
-	socklen_t	to_size;
 	char		buf[BUF_SIZE];
 	HOSTENT		*hostent;
 	SOCKET		sockfd;
-	SOCKADDR_IN	to = {0}; /*inialization to 0 NEEDED*/
+	SOCKADDR_IN	sin = {0}; /*inialization to 0 NEEDED*/
 
 	if (argc == 2)
 	{
 		hostent = NULL;
 		/*socket creation*/
-		if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET)
+		if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == INVALID_SOCKET)
 		{
 			perror("socket()");
 			exit(errno);
@@ -33,22 +32,26 @@ int	main(int argc, char **argv)
 			fprintf(stderr, "Unknown host %s.\n", argv[1]);
 			exit(EXIT_FAILURE);
 		}
-		to.sin_addr = *(IN_ADDR *) hostent->h_addr;
-		to.sin_family = AF_INET;
-		to.sin_port = htons(PORT);
-		to_size = sizeof(to);
+		sin.sin_addr = *(IN_ADDR *) hostent->h_addr;
+		sin.sin_family = AF_INET;
+		sin.sin_port = htons(PORT);
 		puts("#Ecrivez vos messages ici#");
+		if (connect(sockfd, (SOCKADDR *)&sin, sizeof(SOCKADDR)) == SOCKET_ERROR)
+		{
+			perror("connect()");
+			exit(errno);
+		}
 		while (fgets(buf, BUF_SIZE, stdin))
 		{
-			if (sendto(sockfd, buf, strlen(buf), FLAGS, (SOCKADDR *)&to, to_size) < 0)
+			if (send(sockfd, buf, strlen(buf), FLAGS) < 0)
 			{
-				perror("sendto()");
+				perror("send()");
 				exit(errno);
 			}
 		}
 		close(sockfd);
 	}
 	else
-		puts("usage : ./client_udp.exe HOSTNAME");
+		puts("usage : ./client_tcp.exe HOSTNAME");
 	return (0);
 }

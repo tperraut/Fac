@@ -16,8 +16,8 @@ int	main(void)
 	socklen_t	from_size;
 	char		buf[BUF_SIZE + 1];
 	SOCKET		sockfd;
-	SOCKADDR_IN	sin;
-	SOCKADDR_IN	from;
+	SOCKADDR_IN	sin = {0}; /*inialization to 0 NEEDED*/
+	SOCKADDR_IN	from = {0}; /*inialization to 0 NEEDED*/
 
 	/*socket creation*/
 	if((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET)
@@ -32,7 +32,7 @@ int	main(void)
 	/*interface*/
 	if(bind(sockfd, (SOCKADDR *) &sin, sizeof(sin)) == SOCKET_ERROR)
 	{
-		perror("bindi()");
+		perror("bind()");
 		exit(errno);
 	}
 	from_size = sizeof(from);

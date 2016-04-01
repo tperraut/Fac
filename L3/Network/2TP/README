@@ -5,3 +5,5 @@ To test my work :
 
 ctrl+D to stop client
 tape fg and then ctrl+C to stop server
+
+same for tcp
