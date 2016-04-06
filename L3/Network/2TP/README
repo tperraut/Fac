@@ -1,9 +1,13 @@
+make to build binary
 To test my work :
-./serveur_udp.exe &
-./client_udp.exe localhost
+./serveur_udp.exe
+./client_udp.exe localhost in another terminal
 "write what you want..."
 
 ctrl+D to stop client
-tape fg and then ctrl+C to stop server
+ctrl+C to stop server
 
-same for tcp
+same for tcp, just replace serveur_udp by serveur_tcp and client_udp by client_tcp
+
+make clean to clean object files
+make fclean to clean object files and binary
