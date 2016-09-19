@@ -1,0 +1,14 @@
+ast.cmi :
+error.cmo : ast.cmi
+error.cmx : ast.cmi
+parser.cmi : ast.cmi
+parser.cmo : ast.cmi parser.cmi
+parser.cmx : ast.cmi parser.cmi
+lexer.cmo : parser.cmi error.cmo ast.cmi
+lexer.cmx : parser.cmx error.cmx ast.cmi
+interpreter.cmo : ast.cmi
+interpreter.cmx : ast.cmi
+compiler.cmo : ast.cmi
+compiler.cmx : ast.cmi
+main.cmo : parser.cmi lexer.cmo interpreter.cmo error.cmo compiler.cmo
+main.cmx : parser.cmx lexer.cmx interpreter.cmx error.cmx compiler.cmx
