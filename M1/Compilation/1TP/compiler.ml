@@ -59,18 +59,37 @@ let rec require (e : Ast.expr) : int =
     | Eint(x) -> 1
     | Ebinop(op, bob, john) ->
         match bob, john with
-          | Eint(x), _ when (is_commute op) -> require john
-          | Eint(_), Eint(x) -> require bob
+          | Eint(_), Eint(_) -> 1
+          | Eint(_), _ when (is_commute op) -> require john
           | _ -> require bob + require john
 
-let compile_expr4 (e : Ast.expr) (req : int) : unit =
+(* Peut être testé avec arith6.ml pour le fonctionnement
+*  et avec failexpr3
+*)
+let rec compile_expr4 (e : Ast.expr) (i : int) : unit =
    match e with
-     | Eint(x) -> 
+    | Eint(x) -> printf " li $a%d, %d\n" i x
+    | Ebinop(op, bob, john) ->
+        match bob, john with
+          | Eint(x), _ when (is_commute op) ->
+              compile_expr4 john i;
+              printf " %s $a%d, $a%d, %d\n" (operator op) i i x
+          | Eint(_), Eint(x) ->
+              compile_expr4 bob i;
+              printf " %s $a%d, $a%d, %d\n" (operator op) i i x
+          | _ when (require bob) > (require john) ->
+              compile_expr4 bob i;
+              compile_expr4 john (i + 1);
+              printf " %s $a%d, $a%d, $a%d\n" (operator op) i i (i + 1)
+          | _ ->
+              compile_expr4 john i;
+              compile_expr4 bob (i + 1);
+              printf " %s $a%d, $a%d, $a%d\n" (operator op) i (i + 1) i
 
 
 let compile_toplevel_expr (e: Ast.expr) : unit =
-  Printf.printf "registre required : %d\n" (require e);
+  Printf.printf "#base registre required : %d\n" (require e);
   Printf.printf ".text\nmain:\n";
-  compile_expr3 e 0;
+  compile_expr4 e 0;
   Printf.printf "#SYSTEM CALL\n";
   Printf.printf " li $v0, 1\n syscall\n li $v0, 10\n syscall\n"
