@@ -30,12 +30,13 @@ let rec compile_expr2 (e : Ast.expr) (i : int) : unit =
 
 let is_commute (op : Ast.binop) : bool =
   match op with
-    | Minus -> false
+    | Minus | Div -> false
     | _ -> true
 
 (*
  * Nous considèrerons que les entiers utilisés sont codés sur 32 bits
- * sinon il faudra faire un petit ajustement
+ * sinon il faudra faire un petit ajustement ou utiliser un jeu
+ * d'instructions 64 bits
  *)
 
 let rec compile_expr3 (e : Ast.expr) (i : int) : unit =
@@ -63,9 +64,7 @@ let rec require (e : Ast.expr) : int =
           | Eint(_), _ when (is_commute op) -> require john
           | _ -> require bob + require john
 
-(* Peut être testé avec arith6.ml pour le fonctionnement
-*  et avec failexpr3
-*)
+(* Peut être testé avec arith6.ml pour le bon fonctionnement *)
 let rec compile_expr4 (e : Ast.expr) (i : int) : unit =
    match e with
     | Eint(x) -> printf " li $a%d, %d\n" i x
@@ -86,6 +85,25 @@ let rec compile_expr4 (e : Ast.expr) (i : int) : unit =
               compile_expr4 bob (i + 1);
               printf " %s $a%d, $a%d, $a%d\n" (operator op) i (i + 1) i
 
+let rec compile_expr5 (e : Ast.expr) (i : int) : unit =
+   match e with
+    | Eint(x) -> printf " li $a%d, %d\n" i x
+    | Ebinop(op, bob, john) ->
+        match bob, john with
+          | Eint(x), _ when (is_commute op) ->
+              compile_expr5 john i;
+              printf " %s $a%d, $a%d, %d\n" (operator op) i i x
+          | Eint(_), Eint(x) ->
+              compile_expr5 bob i;
+              printf " %s $a%d, $a%d, %d\n" (operator op) i i x
+          | _ when (require bob) > (require john) ->
+              compile_expr5 bob i;
+              compile_expr5 john (i + 1);
+              printf " %s $a%d, $a%d, $a%d\n" (operator op) i i (i + 1)
+          | _ ->
+              compile_expr4 john i;
+              compile_expr4 bob (i + 1);
+              printf " %s $a%d, $a%d, $a%d\n" (operator op) i (i + 1) i
 
 let compile_toplevel_expr (e: Ast.expr) : unit =
   Printf.printf "#base registre required : %d\n" (require e);
