@@ -52,6 +52,7 @@ MARS = java -jar $(MARS_EXEC) nc
 # Cibles
 
 all: depend $(EXEC)
+	@echo -e "\033[32mVous pouvez utiliser make test [0 ou 1] file1 file2 ...\033[0m"
 
 opt: depend $(EXEC).opt
 
@@ -109,6 +110,9 @@ parser.ml parser.mli: ast.cmi
 .ml.asm: 
 	./$(EXEC) $<
 
+test: all
+	./testall.sh $(filter-out $@,$(MAKECMDGOALS))
+
 clean:
 	rm -f *.cm[iox] *~ .*~ *.o *.annot *.conflicts *.output
 	rm -f $(SRC_MLL:.mll=.ml) $(SRC_MLY:.mly=.ml) $(SRC_MLY:.mly=.mli)
@@ -121,6 +125,8 @@ clean_test_all:
 
 clean_test:
 	rm -f $(TEST_ASM)
+
+re: clean all
 
 
 depend: $(SMLIY)
