@@ -17,12 +17,20 @@ do
 	cat $p
 	echo ""
 	echo -n "INTERPRETER : "
-	./compilo -i $p
+	i=`./compilo -i $p`
+	echo $i
 	echo ""
 	echo -n "COMPILER : "
 	./compilo $p > test.asm
-	echo `java -jar ../Mars4_5.jar test.asm` |awk '{print $NF}'
-	if [ $op = "1" ]
+	c=$(echo $(java -jar ../Mars4_5.jar test.asm) | awk '{print $NF}')
+	echo $c
+	if [ "$i" != "$c" ]
+	then
+		echo -e "\033[31;1mFAIL\033[0m"
+	else
+		echo -e "\033[32;1mOK\033[0m"
+	fi
+	if [ $op = "1" ] || [ "$i" != "$c" ]
 	then
 		echo ""
 		echo "MIPS_CODE :"

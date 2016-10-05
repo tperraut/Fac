@@ -122,7 +122,7 @@ let rec compile_expr (e : Ast.expr) : unit =
           (* 1. on calcule le résultat du premier opérande *)
           compile_expr e1;
           (* 2. on jump si e1 est évalué à vrai *)
-          printf "  bneq $a0, 0, %s\n" label;
+          printf "  bne $a0, 0, %s\n" label;
           (* 3. on calcule le résultat du deuxième opérande *)
           compile_expr e2;
           (* 4. on met le label *)
@@ -146,7 +146,7 @@ and if_compile_expr (e : Ast.expr) (label : string): unit =
     | Econst (Cbool b) ->
         printf "  li $a0, %d\n  beq $a0, 0, %s\n" (iob b) label
     | Eunop (Not, Econst (Cbool b)) ->
-        printf "  li $a0, %d\n  bneq $a0, 0, %s\n" (iob (not b)) label
+        printf "  li $a0, %d\n  bne $a0, 0, %s\n" (iob (not b)) label
     | Ebinop (Lt | Ge as op, e1, e2) ->
         (* 1. on calcule le résultat du premier opérande *)
         compile_expr e1;
@@ -194,7 +194,7 @@ and if_compile_expr (e : Ast.expr) (label : string): unit =
           compile_expr e1;
           (* 2. si e1 est évalué à vrai, on jump directement sans
           * calculer e2 *)
-          printf "  bneq $a0, 0, %s\n" l_then;
+          printf "  bne $a0, 0, %s\n" l_then;
           (* 3. on calcule le résultat du deuxième opérande *)
           if_compile_expr e2 label;
           printf "%s:\n" l_then
