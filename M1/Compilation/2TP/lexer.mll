@@ -5,8 +5,20 @@
   open Ast
 
   (* Vous pouvez insérer ici du code Caml pour définir des fonctions
-     ou des variables qui seront utilisées dans les actions sémantiques. *)
-  
+     ou des variables qui seront utilisées dans les actions sémantiques. *)	 
+  let newline lexbuf =
+    let pos = lexbuf.Lexing.lex_curr_p in
+    lexbuf.Lexing.lex_curr_p <-
+      { pos with Lexing.pos_lnum = pos.Lexing.pos_lnum + 1;
+		 Lexing.pos_bol = pos.Lexing.pos_cnum }
+	
+  let parse_error lexbuf message =
+    let curr = lexbuf.Lexing.lex_curr_p in
+    let line = curr.Lexing.pos_lnum in
+    let cnum = curr.Lexing.pos_cnum - curr.Lexing.pos_bol in
+    let lexem = Lexing.lexeme lexbuf in
+    Printf.printf "Line %d, character %d: \027[31m %s \027[0m\n" line cnum message;
+    failwith ("Unbound lexem: " ^ lexem)
 }
 
 let space = [' ' '\t' '\r']+
@@ -18,7 +30,7 @@ rule token = parse
 	       (utile pour localiser les erreurs)
 	    2. relancer l'analyse en rappelant la fonction [token] sur [lexbuf]
 	  *)
-      { new_line lexbuf; token lexbuf }
+      { newline lexbuf; token lexbuf }
   | space { token lexbuf }
   | "true" { CBOOL (true) }
   | "false" { CBOOL (false) }
@@ -46,9 +58,9 @@ rule token = parse
   | eof  (* Fin de fichier : émission du lexème [EOF] *)
       { EOF }
   | _
-      { failwith "Lexical error" }
+      { parse_error lexbuf "Parsing error" }
 and comment = parse
-  | '\n' { new_line lexbuf; comment lexbuf }
+  | '\n' { newline lexbuf; comment lexbuf }
   | "*)"
       { () }
   | "(*"
@@ -56,4 +68,4 @@ and comment = parse
   | _
       { comment lexbuf }
   | eof
-      {failwith "Commentaire non-fermé"}
+      {parse_error lexbuf "Commentaire non-fermé"}
