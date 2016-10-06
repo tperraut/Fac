@@ -1,11 +1,12 @@
 {
-
   open Lexing
   open Parser
   open Ast
 
   (* Vous pouvez insérer ici du code Caml pour définir des fonctions
      ou des variables qui seront utilisées dans les actions sémantiques. *)	 
+  exception Error of string
+
   let newline lexbuf =
     let pos = lexbuf.Lexing.lex_curr_p in
     lexbuf.Lexing.lex_curr_p <-
@@ -17,8 +18,8 @@
     let line = curr.Lexing.pos_lnum in
     let cnum = curr.Lexing.pos_cnum - curr.Lexing.pos_bol in
     let lexem = Lexing.lexeme lexbuf in
-    Printf.printf "Line %d, character %d: \027[31m %s \027[0m\n" line cnum message;
-    failwith ("Unbound lexem: " ^ lexem)
+    let msg = Printf.sprintf "Line %d, character %d: \027[31m %s \027[0m\nUnbound lexem: %s" line cnum message lexem in
+    raise (Error (msg))
 }
 
 let space = [' ' '\t' '\r']+
@@ -58,7 +59,7 @@ rule token = parse
   | eof  (* Fin de fichier : émission du lexème [EOF] *)
       { EOF }
   | _
-      { parse_error lexbuf "Parsing error" }
+      { parse_error lexbuf "Lexical error" }
 and comment = parse
   | '\n' { newline lexbuf; comment lexbuf }
   | "*)"

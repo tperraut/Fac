@@ -3,12 +3,8 @@
   open Ast
 
   (* Vous pouvez insérer ici du code Caml pour définir des fonctions
-     ou des variables qui seront utilisées dans les actions sémantiques. *)
-
-  let lex_error message =
-    Printf.printf "Parsing with error: %s" message;
-    failwith ("Logical error")
-	 
+   * ou des variables qui seront utilisées dans les actions sémantiques. *)
+  exception Error
 %}
 
 (* Définition des lexèmes. *)
@@ -74,18 +70,18 @@ expr_bool:
   | e1 = expr_int; GE; e2 = expr_int | e1 = expr_bool; GE; e2 = expr_bool
 								  { Ebinop (Le, e2, e1) }
   | expr_bool AND expr_int | expr_int AND expr_bool | expr_int AND expr_int
-							       {failwith "Type mismatch. boolean && boolean expected"}
+							       { (*failwith "Type mismatch. boolean && boolean expected"; *)raise Error}
   | expr_bool OR expr_int | expr_int OR expr_bool | expr_int OR expr_int
-							     {failwith "Type mismatch. boolean || boolean expected"}
+							     {(*failwith "Type mismatch. boolean || boolean expected"*)raise Error}
   | IF e_bin = expr_bool THEN e_bool1 = expr_bool ELSE e_bool2 = expr_bool
 								   { Eif (e_bin, e_bool1, e_bool2) }
   | IF expr_bool THEN expr_bool ELSE expr_int | IF expr_bool THEN expr_int ELSE expr_bool
-						   {failwith "Type mismatch of branches THEN and ELSE"}
+						   {(*failwith "Type mismatch of branches THEN and ELSE"*)raise Error}
   | NOT; eb = expr_bool_not
 	       { eb }
   | LPAREN e=expr_bool RPAREN
 		       { e }
-  | LPAREN expr_bool EOF { failwith "Unbalanced parantheses"}
+  | LPAREN expr_bool EOF { (*failwith "Unbalanced parantheses"*)raise (Error)}
  (* | EOF { failwith "Unlikely" }*) ;
 		       
 
@@ -106,7 +102,7 @@ expr_int:
 								{ Eif (e_bin, e_int1, e_int2) }
   | LPAREN e=expr_int RPAREN
 		      { e } 
-  | LPAREN expr_int EOF { failwith "Unbalanced parantheses"}
+  | LPAREN expr_int EOF { (*failwith "Unbalanced parantheses"*)raise (Error)}
   | EOF { failwith "Unlikely" } ;
 								
 expr_bool_not:

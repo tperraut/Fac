@@ -5,11 +5,17 @@ let usage = "usage: compilo [options] file.ml"
 
 let interpret  = ref false
 let compile    = ref true
-
 let spec = [ "-i", Arg.Tuple [Arg.Set interpret; Arg.Clear compile],
              "  interpreter only";
 ]
 
+let parse_error lexbuf message =
+    let curr = lexbuf.Lexing.lex_curr_p in
+    let line = curr.Lexing.pos_lnum in
+    let cnum = curr.Lexing.pos_cnum - curr.Lexing.pos_bol in
+    let lexem = Lexing.lexeme lexbuf in
+    Printf.sprintf "Line %d, character %d: \027[31m %s \027[0m\nUnbound lexem: %s" line cnum message lexem
+         
 let file = 
   let file = ref None in
   let set_file s =  
@@ -40,6 +46,10 @@ let () =
         then Compiler.compile_toplevel_expr e;
         exit 0
     with
-        e ->
-          eprintf "Anomaly: %s\n@." (Printexc.to_string e);
-          exit 2
+    | Lexer.Error msg ->
+            Printf.eprintf "%s" msg
+    | Parser.Error->
+            Printf.eprintf "%s" (parse_error lb "Logical error")
+    | e ->
+            eprintf "Anomaly: %s\n@." ((Printexc.to_string e) ^ (Lexing.lexeme lb));
+       exit 2
