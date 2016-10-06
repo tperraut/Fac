@@ -111,7 +111,7 @@ parser.ml parser.mli: ast.cmi
 	./$(EXEC) $<
 
 test: all
-	./testall.sh $(filter-out $@,$(MAKECMDGOALS))
+	@./testall.sh $(filter-out $@,$(MAKECMDGOALS))
 
 clean:
 	rm -f *.cm[iox] *~ .*~ *.o *.annot *.conflicts *.output
