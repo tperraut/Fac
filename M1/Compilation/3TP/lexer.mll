@@ -1,0 +1,95 @@
+{
+
+  open Lexing
+  open Parser
+  open Ast
+
+  let lexical_error s =
+    failwith ("Lexical error : " ^ s)
+    
+  let comment_cpt = ref 0      
+
+  (* Fonction auxiliaire appelée lorsque l'on reconnaît une suite de lettres.
+     Si cette suite de lettres correspond à un mot clé, alors la fonction renvoie
+     le lexème correspondant. Sinon, elle échoue.
+  *)
+  let keyword =
+    let h = Hashtbl.create 17 in
+    List.iter (fun (s, k) -> Hashtbl.add h s k)
+      [ "true",  CONST_BOOL(true);
+	"false", CONST_BOOL(false);
+	"not",   NOT;
+	"if",    IF;
+	"then",  THEN;
+	"else",  ELSE;
+	"print", PRINT;
+	"newline", NEWLINE;
+	"exit",  EXIT;
+      ]	;
+    fun s ->
+      try  Hashtbl.find h s
+      with Not_found -> failwith ("Unknown keyword : " ^ s)
+	
+}
+
+let digit = ['0'-'9']
+let alpha = ['a'-'z' 'A'-'Z']
+
+rule token = parse
+  | '\n'
+      { new_line lexbuf; token lexbuf }
+  | [' ' '\t' '\r']+
+      { token lexbuf }
+  | "(*"
+      { incr comment_cpt; comment lexbuf; token lexbuf }
+  | digit+
+      { CONST_INT (int_of_string (lexeme lexbuf)) }
+  (* En cas d'une suite de lettre, traitement par la fonction auxiliaire pour
+     les mots clés. *)
+  | alpha+
+      { keyword (lexeme lexbuf) }
+  | "("
+      { LPAREN }
+  | ")"
+      { RPAREN }
+  | "-"
+      { MINUS }
+  | "+"
+      { PLUS }
+  | "*"
+      { MULT }
+  | "/"
+      { DIV }
+  | "=="
+      { EQ }
+  | "!="
+      { NEQ }
+  | ">"
+      { GT }
+  | ">="
+      { GE }
+  | "<"
+      { LT }
+  | "<="
+      { LE }
+  | "&&"
+      { AND }
+  | "||"
+      { OR }
+  | ";"
+      { SEMI }
+(* Fin *)
+  | _
+      { lexical_error (lexeme lexbuf) }
+  | eof
+      { EOF }
+
+and comment = parse
+  | "(*"
+      { incr comment_cpt; comment lexbuf }
+  | "*)"
+      { decr comment_cpt; if !comment_cpt > 0 then comment lexbuf }
+  | _
+      { comment lexbuf }
+  | eof
+      { lexical_error "unterminated comment" }
