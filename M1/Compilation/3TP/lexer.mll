@@ -25,15 +25,19 @@
 	"print", PRINT;
 	"newline", NEWLINE;
 	"exit",  EXIT;
+	"var", VAR;
+	"begin", BEGIN;
+	"end", END;
       ]	;
     fun s ->
       try  Hashtbl.find h s
-      with Not_found -> failwith ("Unknown keyword : " ^ s)
+      with Not_found -> IDENT s
 	
 }
 
 let digit = ['0'-'9']
 let alpha = ['a'-'z' 'A'-'Z']
+let ident = ['a'-'z'](digit|alpha|'_')*
 
 rule token = parse
   | '\n'
@@ -46,7 +50,7 @@ rule token = parse
       { CONST_INT (int_of_string (lexeme lexbuf)) }
   (* En cas d'une suite de lettre, traitement par la fonction auxiliaire pour
      les mots clés. *)
-  | alpha+
+  | ident
       { keyword (lexeme lexbuf) }
   | "("
       { LPAREN }

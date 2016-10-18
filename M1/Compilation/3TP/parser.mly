@@ -20,6 +20,8 @@
 %token SEMI
 %token PRINT NEWLINE EXIT 
 %token EOF
+%token VAR BEGIN END
+%token <Ast.ident> IDENT
 
 %nonassoc ELSE
 %left OR
@@ -37,15 +39,22 @@
 prog:
 | instrs=list(instr); EOF { instrs }
 ;
-    
+
 instr:
+| VAR; id=IDENT; SEMI                 { Idecl_var id     }     
 | PRINT; e=expr; SEMI                 { Iprint e         }
 | NEWLINE; SEMI                       { Inewline         }
 | EXIT; SEMI                          { Iexit            }
+| b=block                             { Iblock b         }
 ;
-    
+
+block:
+| BEGIN; instrs = list(instr); END;   { instrs }    
+;
+  
 expr:
 | c=const                                  { c                   }
+| id=IDENT                                 { Eident id           }
 | LPAREN; s=expr; RPAREN                   { s                   }
 | op=unop; e=expr                          { Eunop (op, e)       }
 | e1=expr; op=binop; e2=expr               { Ebinop (op, e1, e2) }
