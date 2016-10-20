@@ -57,6 +57,10 @@ rule token = parse
       { LPAREN }
   | ")"
       { RPAREN }
+  | "["
+      { LSPAREN }
+  | "]"
+      { RSPAREN }
   | "-"
       { MINUS }
   | "+"
