@@ -47,14 +47,14 @@ instr:
 | VAR; id=IDENT; SEMI                                   { Idecl_var id                               }
 | VAR; id=IDENT; ASSIGN; e=expr; SEMI                   { Iblock (Idecl_var id::Iassign (id, e)::[]) }
 | id=IDENT; ASSIGN; e=expr; SEMI                        { Iassign (id, e)                            }
-| a=expr; LSPAREN; i=expr; RSPAREN; ASSIGN; e=expr;     { Isetarr (a, i, e)                          }
+| a=expr; LSPAREN; i=expr; RSPAREN; ASSIGN; e=expr;SEMI { Isetarr (a, i, e)                          }
 | PRINT; e=expr; SEMI                                   { Iprint e                                   }
 | NEWLINE; SEMI                                         { Inewline                                   }
 | EXIT; SEMI                                            { Iexit                                      }
-| WHILE; e=expr; b=block;                               { Iwhile (e, b)                              }
-| FOR; id=IDENT; ASSIGN; e1=expr; TO; e2=expr; b=block
+| WHILE; e=expr; b=block; SEMI                          { Iwhile (e, b)                              }
+| FOR; id=IDENT; ASSIGN; e1=expr; TO; e2=expr; b=block; SEMI
   { Iblock (Iassign (id, e1)::Iwhile (Ebinop(Lt,Eident id,e2 ), Iassign (id, Ebinop (Plus, Eident id, Econst ( Cint 1)))::b)::[]) }
-| b=block                                               { Iblock b            }
+| b=block                                               { Iblock b                                   }
 ;
   
 block:
