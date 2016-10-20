@@ -26,6 +26,7 @@
 	"newline", NEWLINE;
 	"exit",  EXIT;
 	"var", VAR;
+        "while", WHILE;
 	"begin", BEGIN;
 	"end", END;
       ]	;
@@ -82,6 +83,8 @@ rule token = parse
       { OR }
   | ";"
       { SEMI }
+  | ":="
+      { ASSIGN }
 (* Fin *)
   | _
       { lexical_error (lexeme lexbuf) }
