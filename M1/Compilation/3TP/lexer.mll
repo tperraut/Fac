@@ -27,6 +27,8 @@
 	"exit",  EXIT;
 	"var", VAR;
         "while", WHILE;
+        "for", FOR;
+        "to", TO;
 	"begin", BEGIN;
 	"end", END;
       ]	;

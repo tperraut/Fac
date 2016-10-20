@@ -20,7 +20,7 @@
 %token SEMI
 %token PRINT NEWLINE EXIT 
 %token EOF
-%token VAR BEGIN END WHILE
+%token VAR BEGIN END WHILE FOR TO
 %token ASSIGN
 %token <Ast.ident> IDENT
 
@@ -32,6 +32,7 @@
 %left PLUS MINUS
 %left MULT DIV
 %left LSPAREN
+%left ASSIGN
 
 %start prog
 %type <Ast.prog> prog
@@ -43,16 +44,17 @@ prog:
 ;
 
 instr:
-| VAR; id=IDENT; SEMI                               { Idecl_var id        }
-| id=IDENT; ASSIGN; e=expr; SEMI                    { Iassign (id, e)     }
-| a=expr; LSPAREN; i=expr; RSPAREN; ASSIGN; e=expr; { Isetarr (a, i, e)   }
-| PRINT; e=expr; SEMI                               { Iprint e            }
-| NEWLINE; SEMI                                     { Inewline            }
-| EXIT; SEMI                                        { Iexit               }
-| WHILE; e=expr; b=block;                           { Iwhile (e, b)       }
-| b=block                                           { Iblock b            }
+| VAR; id=IDENT; SEMI                                   { Idecl_var id        }
+| id=IDENT; ASSIGN; e=expr; SEMI                        { Iassign (id, e)     }
+| a=expr; LSPAREN; i=expr; RSPAREN; ASSIGN; e=expr;     { Isetarr (a, i, e)   }
+| PRINT; e=expr; SEMI                                   { Iprint e            }
+| NEWLINE; SEMI                                         { Inewline            }
+| EXIT; SEMI                                            { Iexit               }
+| WHILE; e=expr; b=block;                               { Iwhile (e, b)       }
+| FOR; id=IDENT; ASSIGN; e1=expr; TO; e2=expr; b=block  { Iassign (id, e1); Iwhile (Ebinop(Lt,Eident id,e2 ), Iassign (id, Ebinop (Plus, Eident id, Econst ( Cint 1)))::b) }
+| b=block                                               { Iblock b            }
 ;
-
+  
 block:
 | BEGIN; instrs = list(instr); END;   { instrs }    
 ;
