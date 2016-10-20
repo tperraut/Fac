@@ -20,7 +20,8 @@
 %token SEMI
 %token PRINT NEWLINE EXIT 
 %token EOF
-%token VAR BEGIN END
+%token VAR BEGIN END WHILE
+%token ASSIGN
 %token <Ast.ident> IDENT
 
 %nonassoc ELSE
@@ -41,11 +42,13 @@ prog:
 ;
 
 instr:
-| VAR; id=IDENT; SEMI                 { Idecl_var id     }     
-| PRINT; e=expr; SEMI                 { Iprint e         }
-| NEWLINE; SEMI                       { Inewline         }
-| EXIT; SEMI                          { Iexit            }
-| b=block                             { Iblock b         }
+| VAR; id=IDENT; SEMI                 { Idecl_var id          }
+| id=IDENT; ASSIGN; e=expr; SEMI      { Iassign (id, e)       }    
+| PRINT; e=expr; SEMI                 { Iprint e              }
+| NEWLINE; SEMI                       { Inewline              }
+| EXIT; SEMI                          { Iexit                 }
+| WHILE; e=expr; b=block;             { Iwhile (e, b)         }
+| b=block                             { Iblock b              }
 ;
 
 block:
