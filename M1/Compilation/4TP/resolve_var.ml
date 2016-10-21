@@ -88,7 +88,11 @@ let rec resolve_instr (env: var_env) : Ast.instr -> Astv.instr option * var_set 
       let is, vset = resolve_block env b in
       Some (Astv.Iblock is), vset, env
 	
-    | Iwhile (c, is) -> failwith "Not implemented"
+    | Iwhile (c, b) ->
+        let is, vset = resolve_block env b
+        and e = resolve_expr env c
+        in
+        Some (Astv.Iwhile (e, is)), vset, env
 
     | Iprint e -> Some (Astv.Iprint (resolve_expr env e)), Vset.empty, env
 
