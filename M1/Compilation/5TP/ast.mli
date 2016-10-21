@@ -17,6 +17,7 @@ type block = instr list
 and  instr =
   | Idecl_var of ident
   | Idecl_fun of ident * ident list * block
+  | Idecl_rfun of ident * ident list * block
   | Iassign   of ident * expr
   | Isetarr   of expr  * expr  * expr
   | Iblock    of block

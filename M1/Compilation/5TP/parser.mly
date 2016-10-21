@@ -25,7 +25,7 @@
 %token WHILE
 %token LBRACKET RBRACKET
 %token EOF
-%token FUN RETURN
+%token FUN RETURN REC
 
 %nonassoc ELSE
 %left OR
@@ -54,8 +54,10 @@ instr:
 | id=IDENT; ASSIGN; e=expr; SEMI      { Iassign (id, e)     }
 | f=field_expr; ASSIGN; e=expr; SEMI
 		    { let e1, e2 = f in Isetarr (e1, e2, e) }
-| FUN; id=IDENT; LPAREN; il=list(IDENT); RPAREN; b=block;
+| FUN; id=IDENT; LPAREN; il=separated_list(COMMA,IDENT); RPAREN; b=block;
   {Idecl_fun (id, il, b)}
+| FUN; REC; id=IDENT; LPAREN; il=separated_list(COMMA,IDENT); RPAREN; b=block;
+  {Idecl_rfun (id, il, b)}
 | id=IDENT; LPAREN; el=separated_list(COMMA, expr); RPAREN; SEMI;
                                       { Icall (id, el)      }
 | RETURN; e=expr; SEMI;               { Ireturn e           }
