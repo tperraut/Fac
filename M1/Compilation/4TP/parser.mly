@@ -43,19 +43,38 @@ prog:
 ;
 
 instr:
-| VAR; id=IDENT; SEMI                                   { Idecl_var id                               }
-| VAR; id=IDENT; ASSIGN; e=expr; SEMI                   { Iblock (Idecl_var id::Iassign (id, e)::[]) }
-| id=IDENT; ASSIGN; e=expr; SEMI                        { Iassign (id, e)                            }
-| a=expr; LSPAREN; i=expr; RSPAREN; ASSIGN; e=expr;SEMI { Isetarr (a, i, e)                          }
-| PRINT; e=expr; SEMI                                   { Iprint e                                   }
-| NEWLINE; SEMI                                         { Inewline                                   }
-| EXIT; SEMI                                            { Iexit                                      }
-| WHILE; e=expr; b=block;                               { Iwhile (e, b)                              }
+| VAR; id=IDENT; SEMI
+    { Idecl_var id    }
+
+(*| VAR; id=IDENT; ASSIGN; e=expr; SEMI
+    { Idecl_var id    }
+    { Iassign (id, e) }
+*)
+| id=IDENT; ASSIGN; e=expr; SEMI
+    { Iassign (id, e) }
+
+| a=expr; LSPAREN; i=expr; RSPAREN; ASSIGN; e=expr;SEMI
+    { Isetarr (a, i, e) }
+
+| PRINT; e=expr; SEMI
+    { Iprint e          }
+
+| NEWLINE; SEMI
+    { Inewline          }
+
+| EXIT; SEMI
+    { Iexit             }
+
+| WHILE; e=expr; b=block;
+    { Iwhile (e, b)     }
+
 | FOR; id=IDENT; ASSIGN; e1=expr; TO; e2=expr; b=block;
   { Iblock (Idecl_var id::Iassign (id, e1)::Iwhile (Ebinop(Le,Eident id,e2 ), List.rev (Iassign (id, Ebinop (Plus, Eident id, Econst ( Cint 1)))::(List.rev b)))::[]) }
-| b=block                                               { Iblock b                                   }
+
+| b=block
+    { Iblock b          }
 ;
-  
+
 block:
 | BEGIN; instrs = list(instr); END;   { instrs }    
 ;
