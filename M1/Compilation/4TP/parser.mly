@@ -52,7 +52,7 @@ instr:
 | EXIT; SEMI                                            { Iexit                                      }
 | WHILE; e=expr; b=block;                               { Iwhile (e, b)                              }
 | FOR; id=IDENT; ASSIGN; e1=expr; TO; e2=expr; b=block;
-  { Iblock (Iassign (id, e1)::Iwhile (Ebinop(Lt,Eident id,e2 ), Iassign (id, Ebinop (Plus, Eident id, Econst ( Cint 1)))::b)::[]) }
+  { Iblock (Idecl_var id::Iassign (id, e1)::Iwhile (Ebinop(Le,Eident id,e2 ), List.rev (Iassign (id, Ebinop (Plus, Eident id, Econst ( Cint 1)))::(List.rev b)))::[]) }
 | b=block                                               { Iblock b                                   }
 ;
   
