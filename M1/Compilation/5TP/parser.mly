@@ -20,7 +20,7 @@
 %token <Ast.ident> IDENT
 %token VAR ASSIGN
 %token PRINT NEWLINE EXIT
-%token SEMI
+%token SEMI COMMA
 %token BEGIN END
 %token WHILE
 %token LBRACKET RBRACKET
@@ -56,7 +56,7 @@ instr:
 		    { let e1, e2 = f in Isetarr (e1, e2, e) }
 | FUN; id=IDENT; LPAREN; il=list(IDENT); RPAREN; b=block;
   {Idecl_fun (id, il, b)}
-| id=IDENT; LPAREN; el=list(expr); RPAREN; SEMI;
+| id=IDENT; LPAREN; el=separated_list(COMMA, expr); RPAREN; SEMI;
                                       { Icall (id, el)      }
 | RETURN; e=expr; SEMI;               { Ireturn e           }
 | PRINT; e=expr; SEMI                 { Iprint e            }
@@ -75,7 +75,7 @@ expr:
 | IF; c=expr; THEN; e1=expr; ELSE; e2=expr { Eif (c, e1, e2)     }
 | LBRACKET; e=expr; RBRACKET               { Enewarr e           }
 | f=field_expr           { let e1, e2 = f in Egetarr (e1, e2)    }
-| id=IDENT; LPAREN; el=list(expr); RPAREN; SEMI
+| id=IDENT; LPAREN; el=separated_list(COMMA, expr); RPAREN;
 					   { Ecall (id, el)      }
 ;
 					   
