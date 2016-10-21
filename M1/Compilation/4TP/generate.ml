@@ -89,10 +89,11 @@ let rec generate_expr (e : Astv.expr) : unit =
 
     | Egetarr (a, i) ->
         generate_expr a;
-        printf "  move $a1, $a0\n";
+        push 0;
         generate_expr i;
+        pop 1;
         (*Une multiplication de l'indice par 4 revient à un shift de 2 bits*)
-        printf "  sll $a0, $a0, 2\n  add $a0, $a0, $a1\n"
+        printf "  sll $a0, $a0, 2\n  add $a0, $a0, $a1\n  lw $a0, 0($a0)\n"
 
 let rec generate_instr : instr -> unit = function
 
@@ -105,11 +106,14 @@ let rec generate_instr : instr -> unit = function
 
   | Isetarr (a, i, e) ->
         generate_expr a;
-        printf "  move $a1, $a0\n";
+        push 0;
         generate_expr i;
+        pop 1;
         (*Une multiplication de l'indice par 4 revient à un shift de 2 bits*)
         printf "  sll $a0, $a0, 2\n  add $a1, $a0, $a1\n";
+        push 1;
         generate_expr e;
+        pop 1;
         printf "  sw $a0, 0($a1)\n"
       
   | Iblock b      -> generate_block b
@@ -119,7 +123,9 @@ let rec generate_instr : instr -> unit = function
       let fin = new_label () in
         generate_expr c;
         printf "%s:\n  beqz $a0, %s\n" debut fin;
+        push 0;
         generate_block b;
+        pop 0;
         printf "%s:\n" fin
 
   | Iprint e ->

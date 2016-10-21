@@ -1,4 +1,4 @@
-begin	  
+begin 
   var x;
   x := 1 + 2*42;
   while x != 0 begin
