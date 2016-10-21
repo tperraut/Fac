@@ -32,7 +32,6 @@
 %left PLUS MINUS
 %left MULT DIV
 %left LSPAREN
-%left ASSIGN
 
 %start prog
 %type <Ast.prog> prog
