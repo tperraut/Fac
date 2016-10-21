@@ -81,10 +81,12 @@ let rec resolve_instr env fenv =
     | Idecl_var id    ->
       let var = new_svar id in
       None, Vset.singleton var, Env.add id var env, Funset.empty, fenv
-
+    (*TODO*)
     | Idecl_fun (id, params, b) ->
-      failwith "Not implemented"
-      
+        let fu = new_fun id
+        and env2 = 
+        and
+
     | Iassign (id, e) ->
       let svar = Env.find id env
       and e    = resolve_expr env fenv e
@@ -116,7 +118,7 @@ let rec resolve_instr env fenv =
 
     | Icall c ->
       Some (Astv.Icall (resolve_call env fenv c)), Vset.empty, env, Funset.empty, fenv
-	
+	(*TODO*)
     | Ireturn e ->
       failwith "Not implemented"
       
