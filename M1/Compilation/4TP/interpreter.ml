@@ -87,6 +87,10 @@ let print_value : value -> unit = function
 let rec interpret_instr (env: venv) : instr -> venv = function
   | Idecl_var id    -> Env.add id (ref Undefined) env
   | Iassign (id, e) -> Env.find id env := interpret_expr env e; env
+  | Idecl_ass (id, e) ->
+      let env = Env.add id (ref Undefined) env
+      in
+        Env.find id env := interpret_expr env e; env
   | Isetarr (arr, idx, e) ->
     begin
       match (interpret_expr env arr, interpret_expr env idx) with

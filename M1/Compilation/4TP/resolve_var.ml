@@ -71,6 +71,11 @@ let rec resolve_instr (env: var_env) : Ast.instr -> Astv.instr option * var_set 
       and e    = resolve_expr env e
       in
       Some (Astv.Iassign (svar, e)), Vset.empty, env
+    | Idecl_ass (id, e) -> 
+      let var = new_svar id
+      and e    = resolve_expr env e
+      in
+      Some (Astv.Iassign (var, e)), Vset.singleton var, Env.add id var env
 
     | Isetarr (a, i, e) ->
       let a = resolve_expr env a

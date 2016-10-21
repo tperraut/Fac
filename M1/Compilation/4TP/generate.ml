@@ -124,9 +124,7 @@ let rec generate_instr : instr -> unit = function
         printf "%s:\n" debut;
         generate_expr c;
         printf "beqz $a0, %s\n" fin;
-        push 0;
         generate_block b;
-        pop 0;
         printf "j %s\n  %s:\n" debut fin
 
   | Iprint e ->

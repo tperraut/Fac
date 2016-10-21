@@ -46,10 +46,9 @@ instr:
 | VAR; id=IDENT; SEMI
     { Idecl_var id    }
 
-(*| VAR; id=IDENT; ASSIGN; e=expr; SEMI
-    { Idecl_var id    }
-    { Iassign (id, e) }
-*)
+| VAR; id=IDENT; ASSIGN; e=expr; SEMI
+    { Idecl_ass (id, e) }
+
 | id=IDENT; ASSIGN; e=expr; SEMI
     { Iassign (id, e) }
 
