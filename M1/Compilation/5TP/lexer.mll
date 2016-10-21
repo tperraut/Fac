@@ -85,6 +85,8 @@ rule token = parse
       { LBRACKET }
   | "]"
       { RBRACKET }
+  | ","
+      { COMMA }
 (* Fin *)
   | _
       { lexical_error (lexeme lexbuf) }
