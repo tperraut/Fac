@@ -9,7 +9,11 @@
     
   let comment_cpt = ref 0      
 
-  let keyword_or_ident =
+  (* Fonction auxiliaire appelée lorsque l'on reconnaît une suite de lettres.
+     Si cette suite de lettres correspond à un mot clé, alors la fonction renvoie
+     le lexème correspondant. Sinon, elle échoue.
+  *)
+  let keyword =
     let h = Hashtbl.create 17 in
     List.iter (fun (s, k) -> Hashtbl.add h s k)
       [ "true",  CONST_BOOL(true);
@@ -18,12 +22,15 @@
 	"if",    IF;
 	"then",  THEN;
 	"else",  ELSE;
-	"var",   VAR;
 	"print", PRINT;
 	"newline", NEWLINE;
 	"exit",  EXIT;
+	"var", VAR;
+        "while", WHILE;
+        "for", FOR;
+        "to", TO;
 	"begin", BEGIN;
-	"end",   END;
+	"end", END;
       ]	;
     fun s ->
       try  Hashtbl.find h s
@@ -33,7 +40,7 @@
 
 let digit = ['0'-'9']
 let alpha = ['a'-'z' 'A'-'Z']
-let ident = ['a'-'z'] (digit | alpha | ['_'])*
+let ident = ['a'-'z'](digit|alpha|'_')*
 
 rule token = parse
   | '\n'
@@ -44,12 +51,18 @@ rule token = parse
       { incr comment_cpt; comment lexbuf; token lexbuf }
   | digit+
       { CONST_INT (int_of_string (lexeme lexbuf)) }
+  (* En cas d'une suite de lettre, traitement par la fonction auxiliaire pour
+     les mots clés. *)
   | ident
-      { keyword_or_ident (lexeme lexbuf) }
+      { keyword (lexeme lexbuf) }
   | "("
       { LPAREN }
   | ")"
       { RPAREN }
+  | "["
+      { LSPAREN }
+  | "]"
+      { RSPAREN }
   | "-"
       { MINUS }
   | "+"
@@ -74,14 +87,10 @@ rule token = parse
       { AND }
   | "||"
       { OR }
-  | ":="
-      { ASSIGN }
   | ";"
       { SEMI }
-  | "["
-      { LSPAREN }
-  | "]"
-      { RSPAREN }
+  | ":="
+      { ASSIGN }
 (* Fin *)
   | _
       { lexical_error (lexeme lexbuf) }

@@ -83,10 +83,16 @@ let rec generate_expr (e : Astv.expr) : unit =
       generate_expr e_else;
       printf "%s:\n" end_label
 
-    | Enewarr e -> failwith "Not implemented"
+    | Enewarr e ->
+        generate_expr e;
+        printf "  jal malloc\n"
 
-    | Egetarr (a, i) -> failwith "Not implemented"
-      
+    | Egetarr (a, i) ->
+        generate_expr a;
+        printf "  move $a1, $a0\n";
+        generate_expr i;
+        (*Une multiplication de l'indice par 4 revient à un shift de 2 bits*)
+        printf "  sll $a0, $a0, 2\n  add $a0, $a0, $a1\n"
 
 let rec generate_instr : instr -> unit = function
 
@@ -97,12 +103,25 @@ let rec generate_instr : instr -> unit = function
     generate_expr e; 
     printf "  la $a1, %s\n  sw $a0, 0($a1)\n" (get_label var)
 
-  | Isetarr (a, i, e) -> failwith "Not implemented"
+  | Isetarr (a, i, e) ->
+        generate_expr a;
+        printf "  move $a1, $a0\n";
+        generate_expr i;
+        (*Une multiplication de l'indice par 4 revient à un shift de 2 bits*)
+        printf "  sll $a0, $a0, 2\n  add $a1, $a0, $a1\n";
+        generate_expr e;
+        printf "  sw $a0, 0($a1)\n"
       
   | Iblock b      -> generate_block b
 
-  | Iwhile (c, b) -> failwith "Not implemented"
-    
+  | Iwhile (c, b) ->
+      let debut = new_label () in
+      let fin = new_label () in
+        generate_expr c;
+        printf "%s:\n  beqz $a0, %s\n" debut fin;
+        generate_block b;
+        printf "%s:\n" fin
+
   | Iprint e ->
     generate_expr e;
     printf "  li $v0, 1\n  syscall\n"
