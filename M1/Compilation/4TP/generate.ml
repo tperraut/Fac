@@ -121,12 +121,13 @@ let rec generate_instr : instr -> unit = function
   | Iwhile (c, b) ->
       let debut = new_label () in
       let fin = new_label () in
+        printf "%s:\n" debut;
         generate_expr c;
-        printf "%s:\n  beqz $a0, %s\n" debut fin;
+        printf "beqz $a0, %s\n" fin;
         push 0;
         generate_block b;
         pop 0;
-        printf "%s:\n" fin
+        printf "j %s\n  %s:\n" debut fin
 
   | Iprint e ->
     generate_expr e;

@@ -19,7 +19,7 @@ do
 	echo -e "\033[1m$i\033[0m"
 	echo -ne "\e[97;100mCOMPILER\e[0m : "
 	./compilo $p > test.asm
-	c=$(echo $(java -jar ../Mars4_5.jar test.asm) | awk '{print $NF}')
+	c=$(java -jar ../Mars4_5.jar nc test.asm)
 	echo -e "\033[1m$c\033[0m"
 	if [ "$i" != "$c" ]
 	then
@@ -27,7 +27,7 @@ do
 	else
 		echo -e "\e[1;90;102m[OK]\e[0m"
 	fi
-	if [ $op = "1" ] || [ "$i" != "$c" ]
+	if [ $op = "1" ] || [ "$i" != "$c" ] && [ $op = "3" ]
 	then
 		echo ""
 		echo -e "\e[97;100mMIPS_CODE\e[0m"
