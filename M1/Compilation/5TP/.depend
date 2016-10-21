@@ -1,0 +1,13 @@
+astcommon.cmi :
+ast.cmi : astcommon.cmi
+astv.cmi : astcommon.cmi ast.cmi
+parser.cmo : astcommon.cmi ast.cmi parser.cmi
+parser.cmx : astcommon.cmi ast.cmi parser.cmi
+interpreter.cmo : astcommon.cmi ast.cmi
+interpreter.cmx : astcommon.cmi ast.cmi
+resolve_var.cmo : astv.cmi astcommon.cmi ast.cmi resolve_var.cmi
+resolve_var.cmx : astv.cmi astcommon.cmi ast.cmi resolve_var.cmi
+generate.cmo : astv.cmi astcommon.cmi generate.cmi
+generate.cmx : astv.cmi astcommon.cmi generate.cmi
+main.cmo : resolve_var.cmi parser.cmi interpreter.cmo generate.cmi
+main.cmx : resolve_var.cmx parser.cmx interpreter.cmx generate.cmx
