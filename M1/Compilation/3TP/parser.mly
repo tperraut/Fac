@@ -50,8 +50,8 @@ instr:
 | PRINT; e=expr; SEMI                                   { Iprint e                                   }
 | NEWLINE; SEMI                                         { Inewline                                   }
 | EXIT; SEMI                                            { Iexit                                      }
-| WHILE; e=expr; b=block; SEMI                          { Iwhile (e, b)                              }
-| FOR; id=IDENT; ASSIGN; e1=expr; TO; e2=expr; b=block; SEMI
+| WHILE; e=expr; b=block;                               { Iwhile (e, b)                              }
+| FOR; id=IDENT; ASSIGN; e1=expr; TO; e2=expr; b=block;
   { Iblock (Iassign (id, e1)::Iwhile (Ebinop(Lt,Eident id,e2 ), Iassign (id, Ebinop (Plus, Eident id, Econst ( Cint 1)))::b)::[]) }
 | b=block                                               { Iblock b                                   }
 ;
