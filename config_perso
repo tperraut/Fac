@@ -1,15 +1,15 @@
 let g:syntastic_c_include_dirs = ['../../../include', '../../include','../include','./include']
-
 " Highlight search
 set hlsearch
-
 " For ocaml indentation
 autocmd FileType ocaml set expandtab
 autocmd FileType ocaml setlocal shiftwidth=2
 autocmd FileType ocaml setlocal softtabstop=2
 filetype plugin indent on
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-execute "set rtp+=" . g:opamshare . "/merlin/vim"
+set rtp+=/home/tperraut/ocp-indent-vim
+set rtp+=/home/tperraut/merlin/vim/merlin
+"let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+"execute "set rtp+=" . g:opamshare . "/merlin/vim"
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
