@@ -1,0 +1,5 @@
+#!/bin/sh
+PATH=/usr/libexec/xscreensaver:$PATH
+exec webcollage.original \
+	-directory /usr/share/backgrounds/images \
+	"$@"
